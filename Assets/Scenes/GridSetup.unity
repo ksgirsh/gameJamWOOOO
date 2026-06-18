@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d4d40b5b1a48a46bb6a703ecf879cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridMovement
-  cellSize: 1
+  mainGrid: {fileID: 1093821773}
 --- !u!1 &400388827
 GameObject:
   m_ObjectHideFlags: 0
