@@ -4,12 +4,15 @@ using System.Collections;
 public class GridMovement : MonoBehaviour
 {
     public Grid mainGrid;
+    [SerializeField] float lerpPercentage;
+    [SerializeField] float lerpDuration;
     private float cellSize;
     private Vector2 initPosition;
 
     private float movementX;
     private float movementY;
     private bool moving;
+    private Coroutine movementCoroutine;
 
     Vector2 gridPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,13 +35,13 @@ public class GridMovement : MonoBehaviour
         if (Input.GetButtonDown("Horizontal") && !moving)
         {
             gridPosition.x += (movementX * cellSize);
-            StartCoroutine(ShiftToCell(gridPosition));
+            movementCoroutine = StartCoroutine(ShiftToCell(gridPosition, lerpPercentage, lerpDuration));
         }
 
         if (Input.GetButtonDown("Vertical") && !moving)
         {
             gridPosition.y += (movementY * cellSize);
-            StartCoroutine(ShiftToCell(gridPosition));
+            movementCoroutine = StartCoroutine(ShiftToCell(gridPosition, lerpPercentage, lerpDuration));
         }
     }
 
@@ -50,11 +53,25 @@ public class GridMovement : MonoBehaviour
 
     IEnumerator ShiftToCell(Vector2 worldCellPos, float lerpPoint = 0.75f, float duration = 0.02f)
     {
+
+
+
+
+        moving = true;
         //worldCellPos just equals futureGridPosition
         Vector2 initPosition = transform.position;
+        //magic number, fix later
+        Vector2 anticpLerpPoint = Vector2.Lerp(initPosition, worldCellPos, 0.075f);
+        for (float i = 0; i < duration; i += Time.deltaTime)
+        {
+            transform.position = Vector2.Lerp(initPosition, anticpLerpPoint, i);
+            yield return null;
+        }
+
+
 
         Vector2 startLerpPoint = Vector2.Lerp(initPosition, worldCellPos, lerpPoint);
-        moving = true;
+        
         for (float i = 0; i < duration; i += Time.deltaTime)
         {
             transform.position = Vector2.Lerp(startLerpPoint, worldCellPos, i);
