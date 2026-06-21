@@ -7,7 +7,7 @@ using TMPro;
 public class RocketControl : MonoBehaviour
 {
     [SerializeField] SelectControl select;
-    [SerializeField] GameObject rocketPrefab;
+    public GameObject rocketPrefab;
 
     public List<GameObject> rockets;
 
@@ -35,13 +35,17 @@ public class RocketControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && planet != null && meters >= 5)
+        if (rocketPrefab != null)
         {
-            plntScript = planet.GetComponent<Planet>();
+            if (Input.GetButtonDown("Fire1") && planet != null && meters >= rocketPrefab.GetComponent<Rocket>().rocketPrice)
+            {
+                plntScript = planet.GetComponent<Planet>();
 
-            SpawnRocket(plntScript.MouseToSurfaceRay(planet.transform), plntScript.MouseToSurfaceNormal(planet.transform));
+                SpawnRocket(plntScript.MouseToSurfaceRay(planet.transform), plntScript.MouseToSurfaceNormal(planet.transform));
 
+            }
         }
+
 
         ProcessTotalDistance();
     }

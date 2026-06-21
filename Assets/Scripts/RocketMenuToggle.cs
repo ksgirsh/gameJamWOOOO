@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public class Buyable : MonoBehaviour
+public class RocketMenuToggle : MonoBehaviour
 {
-    public GameObject preview;
+    [SerializeField] GameObject hookPreview;
+    [SerializeField] GameObject rocketMenu;
+    float offset;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -13,5 +16,10 @@ public class Buyable : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Toggle(bool on)
+    {
+
     }
 }

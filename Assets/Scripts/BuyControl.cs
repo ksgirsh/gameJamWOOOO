@@ -15,19 +15,24 @@ public class BuyControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && (houston.meters - (selectedBuy.GetComponent<Buyable>().buyPrice)) >= 0)
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            TriggerBuy();
-            houston.savedDistance -= (selectedBuy.GetComponent<Buyable>().buyPrice);
+            TriggerBuy(100);
+            
 
 
         }
     }
     
-    void TriggerBuy()
+    public void TriggerBuy(float price)
     {
         
         GameObject prev = GameObject.Instantiate((selectedBuy.GetComponent<Buyable>().preview), WorldMousePos(), Quaternion.identity);
+
+        //this logic feels weirdly circular and confusing. Theres a cleaner way to do this that hasnt gotten through my thick skull
+        prev.GetComponent<Preview>().realVersion = selectedBuy;
+        prev.GetComponent<Preview>().cost = price;
+
     }
 
     Vector3 WorldMousePos(float z = 0)

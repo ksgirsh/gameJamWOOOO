@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4211592365637721446}
   - component: {fileID: -5566830855953939422}
   m_Layer: 0
-  m_Name: Rocket
+  m_Name: Turbo Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.6462264, b: 0.6462264, a: 1}
+  m_Color: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -109,14 +109,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   targetHook: {fileID: 0}
   normalVector: {x: 0, y: 0}
-  rocketSpeed: 1
+  rocketSpeed: 5
   attachOffset: 0.105
   hookProperties: {fileID: 0}
   trueDistance: 0
   distanceTravelled: 0
   debugPrefab: {fileID: 1768601570894354729, guid: ce59c9182a2429547a46e230f950d4d5, type: 3}
   houston: {fileID: 0}
-  rocketPrice: 5
+  rocketPrice: 7
 --- !u!50 &-5951365827162519020
 Rigidbody2D:
   serializedVersion: 5

@@ -239,7 +239,7 @@ public class Rocket : MonoBehaviour
 
         //Quaternion newRotationQ = Quaternion.Euler(0f, 0f, (attachedAngle - 90));
 
-        rb.AddForce(transform.up * (hookRotationSpeed + (hookAngSpeed / hookRad)), ForceMode2D.Impulse);
+        rb.AddForce(transform.up * ((hookRotationSpeed + (hookAngSpeed / hookRad)) + (rocketSpeed - 1)), ForceMode2D.Impulse);
         //transform.rotation = newRotationQ;
 
         hookProperties.UnloadRocket(gameObject);
