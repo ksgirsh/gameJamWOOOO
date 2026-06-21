@@ -25,19 +25,40 @@ public class ShopValues : MonoBehaviour
     void Start()
     {
         StartCoroutine(LateStart());
+
+        
+
+
+
+
     }
 
     IEnumerator LateStart()
     {
         yield return null;
         
+
         RefreshShop();
+
+        
+
         dropdown.captionText.text = "Astroshop";
+
+        dropdown.onValueChanged.AddListener(value => {
+            Debug.Log("Pressed");
+            dropdown.SetValueWithoutNotify(-1);
+        });
+
+        dropdown.SetValueWithoutNotify(-1);
     }
 
     public void GetDropdownValue()
     {
+
         
+        
+
+
         int pickedEntryIndex = dropdown.value;
         string selectedOption = (dropdown.options[pickedEntryIndex]).text;
 
