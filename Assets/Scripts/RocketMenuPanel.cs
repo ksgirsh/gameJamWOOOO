@@ -1,8 +1,9 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class RocketMenuPanel : MonoBehaviour
+public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
 {
     [HideInInspector] public Image icon;
     [HideInInspector] public TextMeshProUGUI title;
@@ -21,11 +22,16 @@ public class RocketMenuPanel : MonoBehaviour
     [SerializeField] Color activeColor;
     [SerializeField] Color lockedColor;
     [SerializeField] Color inactiveColor;
+    [SerializeField] Color selectedColor;
+
+    bool selectedForUpgrade = false;
+    GameObject player;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         houston = player.GetComponent<RocketControl>();
         bgColor = gameObject.GetComponent<Image>();
 
@@ -40,7 +46,6 @@ public class RocketMenuPanel : MonoBehaviour
 
     public void InitUnlockLogic()
     {
-        Debug.Log("ran logic");
         if (unlocked == false)
         {
             price.text = unlockPrice.ToString();
@@ -60,8 +65,6 @@ public class RocketMenuPanel : MonoBehaviour
 
     public void ToggleActiveRocket()
     {
-
-        Debug.Log("pressed");
 
         if (unlocked == false && ((houston.savedDistance - unlockPrice) >= 0))
         {
@@ -107,5 +110,68 @@ public class RocketMenuPanel : MonoBehaviour
     {
         houston.rocketPrefab = null;
         bgColor.color = inactiveColor;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        //left click
+        if (eventData.pointerId == -1)
+        {
+            ToggleActiveRocket();
+        }
+
+        //right click
+        if (eventData.pointerId == -2 && unlocked == true)
+        {
+
+            selectedForUpgrade = !selectedForUpgrade;
+            if (selectedForUpgrade)
+            {
+                if (shop.selectedPanel != null)
+                {
+                    shop.selectedPanel.Deselect();
+                    shop.selectedPanel = this;
+                    
+                } else
+                {
+                    shop.selectedPanel = this;
+                }
+
+                bgColor.color = selectedColor;
+                UISingleton.instance.ToggleDropdown(3);
+
+            } else
+            {
+                Deselect();
+
+            }
+        }
+
+        
+    }
+
+    public void Deselect()
+    {
+        selectedForUpgrade = false;
+        shop.selectedPanel = null;
+        if (isActive)
+        {
+            bgColor.color = activeColor;
+        }
+        else
+        {
+            bgColor.color = inactiveColor;
+        }
+
+        //check if any skyhooks are selected, if so show skyhook upgrade dropdown, otherwise enable shop
+        if (player.GetComponent<SelectControl>().lockedHooks.Count > 1)
+        {
+            UISingleton.instance.ToggleDropdown(2);
+
+        }
+        else
+        {
+            UISingleton.instance.ToggleDropdown(1);
+        }
     }
 }

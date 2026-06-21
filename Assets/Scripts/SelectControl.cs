@@ -21,7 +21,8 @@ public class SelectControl : MonoBehaviour
     [SerializeField] List<GameObject> currentLockEffects;
 
     [HideInInspector] public GameObject nearestHook;
-    
+
+    [SerializeField] RocketShop rockShop;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -60,6 +61,13 @@ public class SelectControl : MonoBehaviour
         if (Input.GetButtonDown("Fire2") && lockedHooks.Count > 0)
         {
             EraseLockOn(0);
+        }
+
+        if (lockedHooks.Count > 0)
+        {
+            //replace shop dropdown with skyhook dropdown
+            UISingleton.instance.ToggleDropdown(2);
+
         }
     }
 
@@ -123,6 +131,25 @@ public class SelectControl : MonoBehaviour
         Destroy(currentLockEffects[index]);
         lockedHooks.Remove(lockedHooks[index]);
         currentLockEffects.Remove(currentLockEffects[index]);
+
+        if (lockedHooks.Count == 0)
+        {
+            
+
+            //in the future, check if rockets are selected, if so then enable that dropdown. otherwise enable shop drop
+            if (rockShop != null)
+            {
+                if (rockShop.selectedPanel != null)
+                {
+                    UISingleton.instance.ToggleDropdown(3);
+
+                } else
+                {
+                    UISingleton.instance.ToggleDropdown(1);
+                }
+            }
+            
+        }
     }
 
     

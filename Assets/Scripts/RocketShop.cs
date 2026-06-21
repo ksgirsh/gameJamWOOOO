@@ -23,6 +23,7 @@ public class RocketShop : MonoBehaviour
     [SerializeField] float horizontalSpacing;
 
     public RocketMenuPanel activePanel;
+    public RocketMenuPanel selectedPanel;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
