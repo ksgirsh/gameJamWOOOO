@@ -31,6 +31,8 @@ public class Rocket : MonoBehaviour
 
     public RocketControl houston;
     public float rocketPrice;
+    public float rocketLifetime;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -244,7 +246,7 @@ public class Rocket : MonoBehaviour
 
         hookProperties.UnloadRocket(gameObject);
 
-        StartCoroutine(EraseRocket(5.5f));
+        StartCoroutine(EraseRocket(rocketLifetime + 0.5f));
         yield return new WaitForSeconds(0.5f);
         tr.emitting = true;
 

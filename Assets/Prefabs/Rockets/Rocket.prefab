@@ -117,6 +117,7 @@ MonoBehaviour:
   debugPrefab: {fileID: 1768601570894354729, guid: ce59c9182a2429547a46e230f950d4d5, type: 3}
   houston: {fileID: 0}
   rocketPrice: 5
+  rocketLifetime: 5.5
 --- !u!50 &-5951365827162519020
 Rigidbody2D:
   serializedVersion: 5
