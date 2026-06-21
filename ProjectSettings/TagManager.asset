@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Satellite
+  - Target
+  - Planet
   layers:
   - Default
   - TransparentFX

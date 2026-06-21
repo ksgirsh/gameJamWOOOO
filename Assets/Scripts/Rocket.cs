@@ -9,44 +9,84 @@ public class Rocket : MonoBehaviour
 
 
     [SerializeField] float rocketSpeed = 1;
-
-    private Satellite hookProperties;
+    [SerializeField] float attachOffset = 0.105f;
+    public Satellite hookProperties;
     private float hookAngSpeed;
+    private float hookRotationSpeed;
+    private Rigidbody2D rb;
+
     private float hookRad;
     public float trueDistance;
 
+    private Vector2 startSpot;
+
+    public float distanceTravelled;
+
     [SerializeField] GameObject debugPrefab;
 
+    private TrailRenderer tr;
+    float attachedAngle = 0;
+    bool tracking;
+    bool attached = false;
+
+    public RocketControl houston;
+    public float rocketPrice;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        StartCoroutine(LateStart());
-
         
-
-        Destroy(gameObject, 10);
-    }
-
-    IEnumerator LateStart()
-    {
-        yield return null;
+       // StartCoroutine(LateStart());
 
         hookProperties = targetHook.GetComponent<Satellite>();
 
+        hookProperties.LoadRocket(gameObject);
 
         hookRad = hookProperties.orbitRadius;
         hookAngSpeed = hookProperties.orbitVelocity / hookRad;
+        hookRotationSpeed = hookProperties.rotateVelocity;
 
         targetPosition = (normalVector * hookRad);
         trueDistance = (hookRad - ((transform.position).magnitude));
-       
+
+        tr = gameObject.GetComponent<TrailRenderer>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        rb.bodyType = RigidbodyType2D.Kinematic;
+
+
         StartCoroutine(LaunchSequence());
+
+        //Destroy(gameObject, 10);
+
+        if (hookProperties.auto == false)
+        {
+            houston.nonAutoRockets.Add(gameObject);
+        }
+
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        
+        //attached to hook
+        if (hookProperties.auto == false)
+        {
+            if ((attached) && Input.GetButtonDown("Jump") && (houston.nonAutoRockets.IndexOf(gameObject) == 0))
+            {
+                StartCoroutine(Disengage());
+                houston.nonAutoRockets.Remove(gameObject);
+            }
+        }
+
+    }
+
+    void FixedUpdate()
+    {
+        if (tracking)
+        {
+            distanceTravelled = Vector2.Distance(transform.position, startSpot);
+        }
+
     }
 
     float IdealAngle()
@@ -60,7 +100,7 @@ public class Rocket : MonoBehaviour
     {
         //in radians
         float targetAngle = Mathf.Atan2(targetPosition.y, targetPosition.x);
-       // Debug.Log(targetAngle * Mathf.Rad2Deg);
+
         //turn backwards
         float totalAngle = (targetAngle - IdealAngle());
 
@@ -69,8 +109,8 @@ public class Rocket : MonoBehaviour
         
         
         
-        GameObject debugObj = GameObject.Instantiate(debugPrefab, idealPos, Quaternion.identity);
-        Destroy(debugObj, 4f);
+        
+        
 
 
 
@@ -83,29 +123,23 @@ public class Rocket : MonoBehaviour
         //distance between current hook pos and ideal pos
         Vector2 idealPosition = (IdealPosition());
         Vector2 distance = (idealPosition - (Vector2)targetHook.transform.position);
-        
 
+        //GameObject debugObj = GameObject.Instantiate(debugPrefab, idealPosition, Quaternion.identity);
+        //Destroy(debugObj, 4f);
         //use law of cosines to figure out time to ideal position
         float lawCosValue = (Square(distance.magnitude) - (2 * Square(hookRad))) / (-2 * Square(hookRad));
         float angleLawCos = Mathf.Acos(lawCosValue);
 
-       // GameObject debugObj = GameObject.Instantiate(debugPrefab, targetHook.transform.position, Quaternion.identity);
-       // Destroy(debugObj, 4f);
-
-        //if the angle of the mirrored point is greater than the angle of the original point, the point is behind the object
-
-        Vector2 mDistance = (MirrorPoint(idealPosition) - (Vector2)targetHook.transform.position);
-        float mirroredAngleCheck = Mathf.Acos((Square(mDistance.magnitude) - (2 * Square(hookRad))) / (-2 * Square(hookRad)));
-        if (mirroredAngleCheck > angleLawCos)
+        float crossCheck = Cross((targetHook.transform.position), idealPosition);
+        
+        if (crossCheck < 0)
         {
+            Debug.Log("Cross Product is negative, utilizing Major Arc");
             angleLawCos = ((Mathf.PI * 2) - angleLawCos);
-            Debug.Log("MEASURED ANGLE WAS BEHIND HOOK, REMEASURED");
         }
 
 
-
-
-      //  Debug.Log("centerAngle opposing Chord CI: " + angleLawCos * Mathf.Rad2Deg);
+        //  Debug.Log("centerAngle opposing Chord CI: " + angleLawCos * Mathf.Rad2Deg);
         float timeToIdeal = (angleLawCos / hookAngSpeed);
         return timeToIdeal;
 
@@ -123,7 +157,7 @@ public class Rocket : MonoBehaviour
         yield return new WaitForSeconds(TimeToIdealPosition());
 
         
-        float duration = (hookRad / rocketSpeed);
+        float duration = (trueDistance / rocketSpeed);
         Vector2 initPos = transform.position;
 
         //calc targetPos
@@ -132,27 +166,90 @@ public class Rocket : MonoBehaviour
         {
             float normalizedTime = i / duration;
             yield return null;
-            Vector2 lerpPos = Vector2.Lerp((Vector2.zero), targetPosition, normalizedTime);
+            Vector2 lerpPos = Vector2.Lerp(initPos, targetPosition, normalizedTime);
             transform.position = lerpPos;
 
             
 
         }
 
-        transform.position = targetPosition;
+        transform.position = hookProperties.hookPoint.position;
+        targetHook.transform.rotation = transform.rotation;
+        transform.parent = hookProperties.hookPoint;
+        transform.localPosition = new Vector2(0f, -attachOffset);
+        attached = true;
 
+        Vector3 angles = (transform.rotation).eulerAngles;
+        float initAng = angles.z;
+
+        attachedAngle = initAng;
+        Quaternion newRotationQ = Quaternion.Euler(0f, 0f, (initAng - 90));
+        transform.rotation = newRotationQ;
+
+        
+        if (hookProperties.auto == true)
+        {
+            yield return new WaitForSeconds((2 * Mathf.PI) / hookRotationSpeed);
+
+            StartCoroutine(Disengage());
+        }
+
+        
     }
 
-    Vector2 MirrorPoint(Vector2 point, float radius = 1)
+    //figure out why regular dot product check doesnt work under certain conditions, until then use this
+    float Cross(Vector2 v, Vector2 w)
     {
-        Vector2 norm = point.normalized;
-        float angle = Mathf.Atan2(norm.y, norm.x);
-        float mirroredAngle = angle + Mathf.PI;
+        return ((v.x * w.y) - (v.y * w.x));
+        // assuming v is the hook and w is the ideal position, if a positive scalar is returned then use minor , if a negative scalar is returned use major
+    }
 
-        Vector2 mirroredPoint = new Vector2(Mathf.Cos(mirroredAngle) * radius, Mathf.Sin(mirroredAngle) * radius);
-        return mirroredPoint;
+    IEnumerator EraseRocket(float initDelay)
+    {
+        yield return new WaitForSeconds(initDelay);
 
+        houston.rockets.Remove(gameObject);
+        houston.savedDistance += ((int)distanceTravelled);
+        Destroy(gameObject);
+    }
 
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.tag == "Target")
+        {
+            TargetAttribute check = coll.gameObject.GetComponent<TargetAttribute>();
+
+            if (check.identifier == "Meter Target")
+            {
+                houston.savedDistance += coll.gameObject.GetComponent<MeterTarget>().targetPoints;
+                coll.gameObject.GetComponent<MeterTarget>().TargetHit();
+
+            }
+        }
+    }
+
+    IEnumerator Disengage()
+    {
+        attached = false;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        transform.SetParent(null);
+
+        //Quaternion newRotationQ2 = Quaternion.Euler(0f, 0f, (attachedAngle));
+        //transform.rotation = newRotationQ2;
+
+        //Quaternion newRotationQ = Quaternion.Euler(0f, 0f, (attachedAngle - 90));
+
+        rb.AddForce(transform.up * (hookRotationSpeed + (hookAngSpeed / hookRad)), ForceMode2D.Impulse);
+        //transform.rotation = newRotationQ;
+
+        hookProperties.UnloadRocket(gameObject);
+
+        StartCoroutine(EraseRocket(5.5f));
+        yield return new WaitForSeconds(0.5f);
+        tr.emitting = true;
+
+        startSpot = transform.position;
+        tracking = true;
 
     }
 

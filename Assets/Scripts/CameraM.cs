@@ -15,6 +15,10 @@ public class CameraM : MonoBehaviour
 
     [SerializeField] float OffsetX;
     [SerializeField] Transform target;
+
+    [SerializeField] float maxSize = 19;
+    [SerializeField] float minSize = 3;
+
     void Start()
     {
         
@@ -23,10 +27,42 @@ public class CameraM : MonoBehaviour
         
     }
 
+    void Update()
+    {
+        if (refrenceCamera.orthographicSize < maxSize && (refrenceCamera.orthographicSize > minSize))
+        {
+            //can zoom in or out
+            refrenceCamera.orthographicSize += Input.mouseScrollDelta.y;
+
+        } else if (Input.mouseScrollDelta.y < 0 && (refrenceCamera.orthographicSize >= maxSize))
+        {
+            refrenceCamera.orthographicSize += Input.mouseScrollDelta.y;
+
+        } else if (Input.mouseScrollDelta.y > 0 && (refrenceCamera.orthographicSize <= minSize))
+        {
+            refrenceCamera.orthographicSize += Input.mouseScrollDelta.y;
+        }
+        
+    }
+
     // Update is called once per frame
     
     void FixedUpdate()
     {
+
+        
+        /*
+        if (refrenceCamera.orthographicSize < maxSize)
+        {
+            refrenceCamera.orthographicSize += Input.mouseScrollDelta.y;
+
+        } else if (refrenceCamera.orthographicSize >= maxSize && (Input.mouseScrollDelta.y < 0))
+        {
+            refrenceCamera.orthographicSize += Input.mouseScrollDelta.y;
+        }
+        */
+
+
         Vector2 mousePos = refrenceCamera.ScreenToWorldPoint(Input.mousePosition);
         float cameraPosX = (mousePos.x / mouseDivisionFactor);
         float cameraPosY = (mousePos.y / mouseDivisionFactor);

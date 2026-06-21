@@ -56,6 +56,11 @@ public class SelectControl : MonoBehaviour
         {
             LockSelect();
         }
+
+        if (Input.GetButtonDown("Fire2") && lockedHooks.Count > 0)
+        {
+            EraseLockOn(0);
+        }
     }
 
     public void SelectTrigger(GameObject hook)
@@ -69,6 +74,10 @@ public class SelectControl : MonoBehaviour
             }
         }
 
+        if (hook.GetComponent<Satellite>().loadedRockets.Count >= hook.GetComponent<Satellite>().maxRockets)
+        {
+            return;
+        }
 
         //selection magic
         Transform hookTrans = hook.transform;
@@ -100,6 +109,8 @@ public class SelectControl : MonoBehaviour
         GameObject lockObj = GameObject.Instantiate(lockEffect, currentSelObj.transform.position, Quaternion.identity, currentSelObj.transform.parent);
         lockObj.transform.localPosition = Vector3.zero;
         Destroy(currentSelObj);
+
+        
 
         lockedHooks.Add(selectedHook);
         currentLockEffects.Add(lockObj);

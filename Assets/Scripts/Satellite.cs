@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
 
 public class Satellite : MonoBehaviour
 {
@@ -8,8 +10,9 @@ public class Satellite : MonoBehaviour
 
     public float orbitRadius;
     public float orbitVelocity;
-    [SerializeField] float rotateVelocity;
+    public float rotateVelocity;
     private float orbitAngle;
+    public Transform hookPoint;
 
     [SerializeField] Transform orbitRing;
 
@@ -18,9 +21,18 @@ public class Satellite : MonoBehaviour
 
     private SelectControl control;
 
+    public List<GameObject> loadedRockets;
+    public int maxRockets;
+
+    public bool auto = true;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (parent == null)
+        {
+            parent = GameObject.FindGameObjectWithTag("Planet");
+        }
         rb = gameObject.GetComponent<Rigidbody2D>();
         orbitRadius += parent.transform.localScale.x;
         Vector2 planetPos = parent.transform.position;
@@ -35,7 +47,7 @@ public class Satellite : MonoBehaviour
 
         GameObject manager = GameObject.FindGameObjectWithTag("Player");
         control = manager.GetComponent<SelectControl>();
-        
+        rb.AddTorque(rotateVelocity, ForceMode2D.Impulse);
 
     }
 
@@ -50,7 +62,6 @@ public class Satellite : MonoBehaviour
 
         orbitAngle += Time.deltaTime * (orbitVelocity / orbitRadius);
         transform.position = new Vector2(Mathf.Cos(orbitAngle) * orbitRadius, Mathf.Sin(orbitAngle) * orbitRadius);
-        rb.angularVelocity = rotateVelocity;
         yield return null;
     }
 
@@ -71,6 +82,17 @@ public class Satellite : MonoBehaviour
 
 
 
+    }
+
+
+    public void LoadRocket(GameObject obj)
+    {
+        loadedRockets.Add(obj);
+    }
+
+    public void UnloadRocket(GameObject obj)
+    {
+        loadedRockets.Remove(obj);
     }
 
     void OnMouseEnter()
