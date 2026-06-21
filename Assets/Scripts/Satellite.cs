@@ -40,7 +40,7 @@ public class Satellite : MonoBehaviour
 
         if (orbitRing != null)
         {
-            orbitRing.localScale = (Vector3.one * (orbitRadius));
+            orbitRing.localScale = (Vector3.one * (orbitRadius) * 2);
             orbitRing.position = parent.transform.position;
             orbitRing.SetParent(null);
         }
