@@ -11406,10 +11406,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: InnerHook(Immortal)
       objectReference: {fileID: 0}
-    - target: {fileID: 5079366553949859180, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
-      propertyPath: decay
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5371473215294146521, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
       propertyPath: parent
       value: 
