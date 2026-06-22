@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -8335382741824220575}
   - component: {fileID: 4031666777447590553}
   - component: {fileID: 1504503217581707746}
+  - component: {fileID: 5079366553949859180}
   m_Layer: 0
   m_Name: AimHook
   m_TagString: Satellite
@@ -276,7 +277,7 @@ MonoBehaviour:
   orbitVelocity: 3
   rotateVelocity: 6.5
   hookPoint: {fileID: 69341645883610985}
-  orbitRing: {fileID: 1236601562065746752}
+  <orbitRing>k__BackingField: {fileID: 1236601562065746752}
   loadedRockets: []
   maxRockets: 1
   auto: 0
@@ -343,6 +344,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SatelliteMouseSensor
   satellite: {fileID: 2572996488282332699}
+--- !u!114 &5079366553949859180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2572996488282332699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a329997c952af2043ae84a5bbf970cd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  health: 400
+  currentHealth: 0
+  decay: 1
 --- !u!1 &4725581596618287176
 GameObject:
   m_ObjectHideFlags: 0

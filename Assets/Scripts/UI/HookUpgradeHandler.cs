@@ -12,6 +12,8 @@ public class HookUpgradeHandler : MonoBehaviour
     public Satellite satelliteToUpgrade;
     [SerializeField] RocketControl houston;
 
+    [SerializeField] Image healthMat;
+
     void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -25,12 +27,14 @@ public class HookUpgradeHandler : MonoBehaviour
         });
 
         dropdown.SetValueWithoutNotify(-1);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        healthMat.material.SetFloat("_Health", (satelliteToUpgrade.gameObject.GetComponent<Health>().NormalizedHealth()));
+
     }
 
     //This function is called in Select Control (FYI). Me commenting down where this function is called is probably a sign of bad code. But uhh. i only have 5 days okay cut me a break

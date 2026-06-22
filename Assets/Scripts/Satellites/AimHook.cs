@@ -31,7 +31,10 @@ public class AimHook : Satellite
 
                 break;
             case 1:
-                Debug.Log("Repaired Hook");
+
+                gameObject.GetComponent<Health>().health += (90f * (upgrades[index].currentUpgrades + 1));
+                gameObject.GetComponent<Health>().currentHealth = gameObject.GetComponent<Health>().health;
+
                 break;
             
 

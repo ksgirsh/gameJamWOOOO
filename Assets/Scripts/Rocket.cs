@@ -31,7 +31,7 @@ public class Rocket : MonoBehaviour
 
     public RocketControl houston;
     public float rocketPrice;
-    public float rocketLifetime;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -265,15 +265,15 @@ public class Rocket : MonoBehaviour
         //transform.rotation = newRotationQ;
 
         hookProperties.UnloadRocket(gameObject);
-
-        StartCoroutine(EraseRocket(rocketLifetime + 0.5f));
         yield return new WaitForSeconds(0.5f);
         tr.emitting = true;
 
         startSpot = transform.position;
         tracking = true;
 
-        
+
+        gameObject.GetComponent<Health>().decay = true;
+        StartCoroutine(EraseRocket((gameObject.GetComponent<Health>().currentHealth) - 0.05f));
     }
 
     IEnumerator NonAutoDisengageTimer(float delay)

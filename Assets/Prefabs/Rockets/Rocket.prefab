@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -5951365827162519020}
   - component: {fileID: 4211592365637721446}
   - component: {fileID: -5566830855953939422}
+  - component: {fileID: -5324418835853834662}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Untagged
@@ -117,7 +118,6 @@ MonoBehaviour:
   debugPrefab: {fileID: 1768601570894354729, guid: ce59c9182a2429547a46e230f950d4d5, type: 3}
   houston: {fileID: 0}
   rocketPrice: 5
-  rocketLifetime: 5.5
 --- !u!50 &-5951365827162519020
 Rigidbody2D:
   serializedVersion: 5
@@ -301,3 +301,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.12133157, y: 0.32194042}
   m_EdgeRadius: 0
+--- !u!114 &-5324418835853834662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4043726042106607412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a329997c952af2043ae84a5bbf970cd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  health: 5
+  currentHealth: 0
+  decay: 0

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -6376835986569477909}
   - component: {fileID: 6638953662805435440}
   - component: {fileID: 3940286787914687994}
+  - component: {fileID: 4499145016787624870}
   m_Layer: 0
   m_Name: Satellite
   m_TagString: Satellite
@@ -263,7 +264,7 @@ MonoBehaviour:
   orbitVelocity: 3
   rotateVelocity: 4
   hookPoint: {fileID: 857047712124929351}
-  orbitRing: {fileID: 5302037487132973184}
+  <orbitRing>k__BackingField: {fileID: 5302037487132973184}
   loadedRockets: []
   maxRockets: 1
   auto: 1
@@ -349,6 +350,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   satellite: {fileID: 778420430720143991}
+--- !u!114 &4499145016787624870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778420430720143991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a329997c952af2043ae84a5bbf970cd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  health: 120
+  currentHealth: 0
+  decay: 1
 --- !u!1 &1247276860774672648
 GameObject:
   m_ObjectHideFlags: 0

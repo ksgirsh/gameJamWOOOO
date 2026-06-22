@@ -16,7 +16,7 @@ public class Satellite : MonoBehaviour
     private float orbitAngle;
     public Transform hookPoint;
 
-    [SerializeField] Transform orbitRing;
+    [field:SerializeField] public Transform orbitRing { get; private set; }
 
 
     private Rigidbody2D rb;
@@ -143,7 +143,10 @@ public class Satellite : MonoBehaviour
 
                 break;
             case 2:
-                Debug.Log("Repaired Hook");
+
+                gameObject.GetComponent<Health>().health += (90f * (upgrades[index].currentUpgrades + 1));
+                gameObject.GetComponent<Health>().currentHealth = gameObject.GetComponent<Health>().health;
+
                 break;
 
 
