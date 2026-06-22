@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7727431229046827805}
   - component: {fileID: -7868947033092512223}
   - component: {fileID: -6376835986569477909}
+  - component: {fileID: 7106255619437378684}
   m_Layer: 0
   m_Name: YellowHook
   m_TagString: Satellite
@@ -301,6 +302,16 @@ MonoBehaviour:
   loadedRockets: []
   maxRockets: 1
   auto: 1
+  upgradeDropdownDisplay:
+  - m_Text: Yellow Power
+    m_Image: {fileID: 0}
+    m_Color: {r: 0, g: 0, b: 0, a: 0}
+  - m_Text: OMEGA yellow power
+    m_Image: {fileID: 0}
+    m_Color: {r: 0, g: 0, b: 0, a: 0}
+  - m_Text: Repair Hook
+    m_Image: {fileID: 0}
+    m_Color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &-6376835986569477909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,6 +325,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   preview: {fileID: 5394464266665591977, guid: b3125812a4af2a146bac7239e777180e, type: 3}
+--- !u!114 &7106255619437378684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778420430720143991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d16fa6fd7e7bb4b983b87e7c5511de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  satellite: {fileID: 778420430720143991}
 --- !u!1 &1247276860774672648
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,9 @@ public class SelectControl : MonoBehaviour
     [HideInInspector] public GameObject nearestHook;
 
     [SerializeField] RocketShop rockShop;
-    
+    protected HookUpgradeHandler hookUpgrader;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -48,6 +50,8 @@ public class SelectControl : MonoBehaviour
         }
 
         nearestHook = cachedSatellite;
+        hookUpgrader = UISingleton.instance.skyUpgradeDrop.GetComponent<HookUpgradeHandler>();
+
     }
 
     // Update is called once per frame
@@ -73,6 +77,7 @@ public class SelectControl : MonoBehaviour
 
     public void SelectTrigger(GameObject hook)
     {
+        
         //check to make sure you cant select locked hooks
         foreach (GameObject lHook in lockedHooks)
         {
@@ -84,8 +89,10 @@ public class SelectControl : MonoBehaviour
 
         if (hook.GetComponent<Satellite>().loadedRockets.Count >= hook.GetComponent<Satellite>().maxRockets)
         {
+            Debug.Log("Too many rockets already on hook.");
             return;
         }
+        
 
         //selection magic
         Transform hookTrans = hook.transform;
@@ -123,12 +130,23 @@ public class SelectControl : MonoBehaviour
         lockedHooks.Add(selectedHook);
         currentLockEffects.Add(lockObj);
 
+        //Update Hook Upgrade Options with most recently locked Hook
+        Satellite sat = lockedHooks[0].GetComponent<Satellite>();
+        hookUpgrader.satelliteToUpgrade = sat;
+        hookUpgrader.ChangeUpgrades((sat.upgradeDropdownDisplay), sat.GetListOfPrices(), sat.GetListOfRemainingUpgrades());
+        
+
         selectedHook = null;
     }
 
     public void EraseLockOn(int index)
     {
         Destroy(currentLockEffects[index]);
+
+        //this is evil but its been 2 hours and i cant think of a better way
+        Satellite satI = lockedHooks[index].GetComponent<Satellite>();
+        satI.ResetOptionsText();
+
         lockedHooks.Remove(lockedHooks[index]);
         currentLockEffects.Remove(currentLockEffects[index]);
 
@@ -148,6 +166,12 @@ public class SelectControl : MonoBehaviour
                     UISingleton.instance.ToggleDropdown(1);
                 }
             }
+            
+        } else
+        {
+            Satellite sat = lockedHooks[0].GetComponent<Satellite>();
+            hookUpgrader.satelliteToUpgrade = sat;
+            hookUpgrader.ChangeUpgrades((sat.upgradeDropdownDisplay), sat.GetListOfPrices(), sat.GetListOfRemainingUpgrades());
             
         }
     }

@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 7868508079450587219}
   - component: {fileID: 4634838309873600153}
   - component: {fileID: 1322884371289419091}
-  - component: {fileID: 8617704209963219894}
-  - component: {fileID: 5371473215294146521}
   - component: {fileID: 2337038232077500179}
+  - component: {fileID: -8335382741824220575}
+  - component: {fileID: 4031666777447590553}
+  - component: {fileID: 1504503217581707746}
   m_Layer: 0
   m_Name: AimHook
   m_TagString: Satellite
@@ -35,6 +36,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3119527060718465586}
   - {fileID: 1236601562065746752}
   - {fileID: 69341645883610985}
   m_Father: {fileID: 0}
@@ -244,7 +246,55 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!58 &8617704209963219894
+--- !u!114 &2337038232077500179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2572996488282332699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be8fc9dc1a0edc40b332042de33f653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  preview: {fileID: 5394464266665591977, guid: b3125812a4af2a146bac7239e777180e, type: 3}
+--- !u!114 &-8335382741824220575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2572996488282332699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b38d55f26f46924f8fdce6a1e107e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AimHook
+  parent: {fileID: 0}
+  orbitRadius: 1
+  orbitVelocity: 3
+  rotateVelocity: 6.5
+  hookPoint: {fileID: 69341645883610985}
+  orbitRing: {fileID: 1236601562065746752}
+  loadedRockets: []
+  maxRockets: 1
+  auto: 0
+  upgrades:
+  - cost: 100
+    maxUpgrades: 1
+    currentUpgrades: 0
+  - cost: 300
+    maxUpgrades: 3
+    currentUpgrades: 0
+  upgradeDropdownDisplay:
+  - m_Text: Non-Non-Automatic
+    m_Image: {fileID: 0}
+    m_Color: {r: 0, g: 0, b: 0, a: 0}
+  - m_Text: Repair Hook
+    m_Image: {fileID: 0}
+    m_Color: {r: 0, g: 0, b: 0, a: 0}
+--- !u!58 &4031666777447590553
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,8 +329,8 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.23
---- !u!114 &5371473215294146521
+  m_Radius: 0.4375
+--- !u!114 &1504503217581707746
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -289,31 +339,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2572996488282332699}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 644f16cf11423d7419475fc61fe3857f, type: 3}
+  m_Script: {fileID: 11500000, guid: 48d16fa6fd7e7bb4b983b87e7c5511de, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Satellite
-  parent: {fileID: 0}
-  orbitRadius: 1
-  orbitVelocity: 3
-  rotateVelocity: 6.5
-  hookPoint: {fileID: 69341645883610985}
-  orbitRing: {fileID: 1236601562065746752}
-  loadedRockets: []
-  maxRockets: 1
-  auto: 0
---- !u!114 &2337038232077500179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2572996488282332699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6be8fc9dc1a0edc40b332042de33f653, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  preview: {fileID: 5394464266665591977, guid: b3125812a4af2a146bac7239e777180e, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::SatelliteMouseSensor
+  satellite: {fileID: 2572996488282332699}
 --- !u!1 &4725581596618287176
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,3 +487,48 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5451061720153435253}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6609278736062938058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3119527060718465586}
+  - component: {fileID: 3647712157498717346}
+  m_Layer: 0
+  m_Name: MouseSensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3119527060718465586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6609278736062938058}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5451061720153435253}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3647712157498717346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6609278736062938058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d16fa6fd7e7bb4b983b87e7c5511de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  satellite: {fileID: 2572996488282332699}

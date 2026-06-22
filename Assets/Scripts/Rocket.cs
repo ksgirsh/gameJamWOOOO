@@ -70,14 +70,28 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //attached to hook
+        //STUFF FOR AIM-HOOKS
         if (hookProperties.auto == false)
         {
-            if ((attached) && Input.GetButtonDown("Jump") && (houston.nonAutoRockets.IndexOf(gameObject) == 0))
+            if ((attached) && Input.GetButtonDown("Jump"))
             {
-                StartCoroutine(Disengage());
-                houston.nonAutoRockets.Remove(gameObject);
+                //doesnt work unless this is nested
+                if (houston.nonAutoRockets.IndexOf(gameObject) != 0)
+                {
+                    return;
+
+                } else
+                {
+                    //some Hook-Aim logic is in disengage, removes rocket from list after disengaged
+                    StartCoroutine(Disengage());
+                    
+                }
+
+            } else if (attached && targetHook.GetComponent<AimHook>().autoUpgrade == true)
+            {
+                StartCoroutine(NonAutoDisengageTimer(6f));
             }
+
         }
 
     }
@@ -136,7 +150,7 @@ public class Rocket : MonoBehaviour
         
         if (crossCheck < 0)
         {
-            Debug.Log("Cross Product is negative, utilizing Major Arc");
+            //Debug.Log("Cross Product is negative, utilizing Major Arc");
             angleLawCos = ((Mathf.PI * 2) - angleLawCos);
         }
 
@@ -236,6 +250,12 @@ public class Rocket : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;
         transform.SetParent(null);
 
+        if (hookProperties.auto == false)
+        {
+            yield return null;
+            houston.nonAutoRockets.Remove(gameObject);
+        }
+
         //Quaternion newRotationQ2 = Quaternion.Euler(0f, 0f, (attachedAngle));
         //transform.rotation = newRotationQ2;
 
@@ -253,6 +273,17 @@ public class Rocket : MonoBehaviour
         startSpot = transform.position;
         tracking = true;
 
+        
+    }
+
+    IEnumerator NonAutoDisengageTimer(float delay)
+    {
+        
+        yield return new WaitForSeconds(delay);
+        if (attached)
+        {
+            StartCoroutine(Disengage());
+        }
     }
 
 }

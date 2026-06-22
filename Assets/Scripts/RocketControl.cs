@@ -12,7 +12,7 @@ public class RocketControl : MonoBehaviour
     public List<GameObject> rockets;
 
     //i dont like having this many public variables but it DOES make sense
-    [HideInInspector] public List<GameObject> nonAutoRockets;
+    public List<GameObject> nonAutoRockets;
 
     [SerializeField] TextMeshProUGUI metersText;
 
