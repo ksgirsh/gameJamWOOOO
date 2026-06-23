@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 5888802806066981478}
   m_Layer: 5
   m_Name: RocketSelectPanel
-  m_TagString: Untagged
+  m_TagString: RocketPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,6 +231,7 @@ MonoBehaviour:
   title: {fileID: 8042723225722885238}
   price: {fileID: 404098318003971254}
   item: {fileID: 0}
+  upgrades: []
   isActive: 0
   unlocked: 0
   unlockPrice: 0

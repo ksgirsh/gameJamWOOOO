@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
 {
@@ -9,6 +10,17 @@ public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
     [HideInInspector] public TextMeshProUGUI title;
     [HideInInspector] public TextMeshProUGUI price;
     [HideInInspector] public GameObject item;
+
+    [System.Serializable]
+    public class Upgrade
+    {
+        public int cost;
+        public int maxUpgrades;
+        public int currentUpgrades;
+        public int magnitude;
+    }
+    public List<Upgrade> upgrades;
+
 
 
     private RocketControl houston;
@@ -24,9 +36,10 @@ public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
     [SerializeField] Color inactiveColor;
     [SerializeField] Color selectedColor;
 
-    bool selectedForUpgrade = false;
+    public bool selectedForUpgrade = false;
     GameObject player;
 
+    private RocketUpgradeHandler rockUpgr;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,14 +47,14 @@ public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
         player = GameObject.FindGameObjectWithTag("Player");
         houston = player.GetComponent<RocketControl>();
         bgColor = gameObject.GetComponent<Image>();
-
+        rockUpgr = UISingleton.instance.rockUpgradeDrop.GetComponent<RocketUpgradeHandler>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void InitUnlockLogic()
@@ -53,7 +66,8 @@ public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
 
 
 
-        } else
+        }
+        else
         {
             price.text = consumePrice.ToString();
             bgColor.color = inactiveColor;
@@ -73,7 +87,8 @@ public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
             unlocked = true;
             bgColor.color = inactiveColor;
 
-        } else if (unlocked == true)
+        }
+        else if (unlocked == true)
         {
             isActive = !isActive;
             if (isActive)
@@ -83,7 +98,8 @@ public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
                     //already an active rocket being used
                     shop.activePanel.DeactivatePanel();
                     shop.activePanel = this;
-                } else
+                }
+                else
                 {
                     shop.activePanel = this;
                 }
@@ -93,15 +109,16 @@ public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
                 houston.rocketPrefab = item;
                 bgColor.color = activeColor;
 
-            } else
+            }
+            else
             {
                 DeactivatePanel();
             }
-            
+
         }
 
-        
-        
+
+
 
 
     }
@@ -127,27 +144,36 @@ public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
             selectedForUpgrade = !selectedForUpgrade;
             if (selectedForUpgrade)
             {
+                Rocket rockProperties = item.GetComponent<Rocket>();
+
                 if (shop.selectedPanel != null)
                 {
                     shop.selectedPanel.Deselect();
                     shop.selectedPanel = this;
-                    
-                } else
+                    rockUpgr.subject = rockProperties;
+                    rockUpgr.subjectPanel = this;
+                }
+                else
                 {
                     shop.selectedPanel = this;
+                    rockUpgr.subjectPanel = this;
+                    rockUpgr.subject = rockProperties;
                 }
 
-                bgColor.color = selectedColor;
+                rockUpgr.ChangeUpgrades(rockProperties.upgradeDropdownDisplay);
                 UISingleton.instance.ToggleDropdown(3);
+                bgColor.color = selectedColor;
 
-            } else
+
+            }
+            else
             {
                 Deselect();
 
             }
         }
 
-        
+
     }
 
     public void Deselect()
@@ -173,5 +199,35 @@ public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
         {
             UISingleton.instance.ToggleDropdown(1);
         }
+    }
+
+    public void AddBlankUpgrades(int Count)
+    {
+        for (int i = 0; i < Count; i++)
+        {
+            upgrades.Add(new Upgrade { });
+        }
+    }
+
+    public void UpgradePanel(int index)
+    {
+        //store upgrade data on panel, apply to rocket on instantiate
+        upgrades[index].currentUpgrades++;
+    }
+
+
+    public void ResetTextUponBuy()
+    {
+        Rocket rockProperties = item.GetComponent<Rocket>();
+        for (int i = 0; i < rockProperties.upgradeDropdownDisplay.Count; i++)
+        {
+            int remUpgr = (upgrades[i].maxUpgrades - upgrades[i].currentUpgrades);
+            string addendum = string.Concat(" - ", (rockProperties.upgrades[i].cost).ToString(), "km (x", (remUpgr + 1).ToString(), ") ");
+            //if there is already an addendum, remove it
+            string predendum = ((rockProperties.upgradeDropdownDisplay[i].text).Replace(addendum, ""));
+
+            rockProperties.upgradeDropdownDisplay[i].text = predendum;
+        }
+
     }
 }

@@ -4,6 +4,8 @@ public class TargetAttribute : MonoBehaviour
 {
     public string identifier;
     public ParticleSystem ps;
+    public int spawnChance;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
@@ -14,5 +16,14 @@ public class TargetAttribute : MonoBehaviour
     void Update()
     {
         
+    }
+
+    protected void TriggerDestroy()
+    {
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        TargetSpawn targetManager = player.GetComponent<TargetSpawn>();
+        targetManager.currentTargets--;
+        Destroy(gameObject);
     }
 }

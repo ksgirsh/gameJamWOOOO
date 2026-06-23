@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2237986057229734193}
   m_Layer: 0
   m_Name: SatellitePreview
-  m_TagString: Satellite
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SortingOrder: -1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8360708659529787156, guid: a081703752049d84ca7d6458d820f47a, type: 3}
-  m_Color: {r: 0, g: 1, b: 1, a: 0.48235294}
+  m_Color: {r: 0.09710693, g: 1, b: 0, a: 0.48235294}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -293,3 +293,5 @@ MonoBehaviour:
   mainCam: {fileID: 0}
   identifier: Satellite
   cost: 0
+  placeableColor: {r: 0, g: 1, b: 0.11764707, a: 0.5019608}
+  unplaceableColor: {r: 1, g: 0, b: 0, a: 0.5019608}

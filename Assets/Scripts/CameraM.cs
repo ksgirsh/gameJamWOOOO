@@ -16,7 +16,7 @@ public class CameraM : MonoBehaviour
     [SerializeField] float OffsetX;
     [SerializeField] Transform target;
 
-    [SerializeField] float maxSize = 19;
+    public float maxSize = 19;
     [SerializeField] float minSize = 3;
 
     void Start()

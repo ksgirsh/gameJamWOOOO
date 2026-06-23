@@ -288,6 +288,7 @@ MonoBehaviour:
   - m_Text: Repair Hook
     m_Image: {fileID: 0}
     m_Color: {r: 0, g: 0, b: 0, a: 0}
+  <identifier>k__BackingField: Basic Hook
 --- !u!114 &-6376835986569477909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a329997c952af2043ae84a5bbf970cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  health: 120
+  health: 140
   currentHealth: 0
   decay: 1
 --- !u!1 &1247276860774672648

@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine.UI;
 
 public class Rocket : MonoBehaviour
 {
@@ -31,13 +34,46 @@ public class Rocket : MonoBehaviour
 
     public RocketControl houston;
     public float rocketPrice;
-    
 
+    [System.Serializable]
+    public class Upgrade
+    {
+        public int cost;
+        public int maxUpgrades;
+        public int currentUpgrades;
+        public int magnitude;
+    }
+    public List<Upgrade> upgrades;
+
+    public List<TMP_Dropdown.OptionData> upgradeDropdownDisplay;
+    [SerializeField] Health heal;
+
+    private RocketMenuPanel rockPanel;
+    [field:SerializeField] public string identifier { get; private set; }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-       // StartCoroutine(LateStart());
+
+        // StartCoroutine(LateStart());
+
+        GameObject[] allPanels = GameObject.FindGameObjectsWithTag("RocketPanel");
+        foreach (GameObject panel in allPanels)
+        {
+            if (panel.GetComponent<RocketMenuPanel>().item.GetComponent<Rocket>().identifier == identifier)
+            {
+                rockPanel = panel.GetComponent<RocketMenuPanel>();
+            }
+        }
+        //iterate through upgrades
+        for (int i = 0; i < upgrades.Count; i++)
+        {
+            //iterate through each upgrade on the upgrade list-- apply respective upgrades
+            for (int j = 0; j < rockPanel.upgrades[i].currentUpgrades; j++)
+            {
+                upgrades[i].currentUpgrades++;
+                UpgradeRocket(i);
+            }
+        }
 
         hookProperties = targetHook.GetComponent<Satellite>();
 
@@ -71,28 +107,37 @@ public class Rocket : MonoBehaviour
     void Update()
     {
         //STUFF FOR AIM-HOOKS
-        if (hookProperties.auto == false)
+        if (targetHook != null)
         {
-            if ((attached) && Input.GetButtonDown("Jump"))
+            if (hookProperties.auto == false)
             {
-                //doesnt work unless this is nested
-                if (houston.nonAutoRockets.IndexOf(gameObject) != 0)
+                if ((attached) && Input.GetButtonDown("Jump"))
                 {
-                    return;
+                    //doesnt work unless this is nested
+                    if (houston.nonAutoRockets.IndexOf(gameObject) != 0)
+                    {
+                        return;
 
-                } else
+                    }
+                    else
+                    {
+                        //some Hook-Aim logic is in disengage, removes rocket from list after disengaged
+                        StartCoroutine(Disengage());
+
+                    }
+
+                }
+                else if (attached && targetHook.GetComponent<AimHook>().autoUpgrade == true)
                 {
-                    //some Hook-Aim logic is in disengage, removes rocket from list after disengaged
-                    StartCoroutine(Disengage());
-                    
+                    StartCoroutine(NonAutoDisengageTimer(6f));
                 }
 
-            } else if (attached && targetHook.GetComponent<AimHook>().autoUpgrade == true)
-            {
-                StartCoroutine(NonAutoDisengageTimer(6f));
             }
-
+        } else
+        {
+            Destroy(gameObject);
         }
+        
 
     }
 
@@ -171,8 +216,8 @@ public class Rocket : MonoBehaviour
     {
 
         yield return new WaitForSeconds(TimeToIdealPosition());
+        CheckTargetHealth();
 
-        
         float duration = (trueDistance / rocketSpeed);
         Vector2 initPos = transform.position;
 
@@ -188,6 +233,7 @@ public class Rocket : MonoBehaviour
             
 
         }
+        CheckTargetHealth();
 
         transform.position = hookProperties.hookPoint.position;
         targetHook.transform.rotation = transform.rotation;
@@ -208,6 +254,7 @@ public class Rocket : MonoBehaviour
             yield return new WaitForSeconds((2 * Mathf.PI) / hookRotationSpeed);
 
             StartCoroutine(Disengage());
+            CheckTargetHealth();
         }
 
         
@@ -237,7 +284,7 @@ public class Rocket : MonoBehaviour
 
             if (check.identifier == "Meter Target")
             {
-                houston.savedDistance += coll.gameObject.GetComponent<MeterTarget>().targetPoints;
+                houston.savedDistance += Mathf.Round(coll.gameObject.GetComponent<MeterTarget>().targetPoints);
                 coll.gameObject.GetComponent<MeterTarget>().TargetHit();
 
             }
@@ -254,6 +301,7 @@ public class Rocket : MonoBehaviour
         {
             yield return null;
             houston.nonAutoRockets.Remove(gameObject);
+            CheckTargetHealth();
         }
 
         //Quaternion newRotationQ2 = Quaternion.Euler(0f, 0f, (attachedAngle));
@@ -266,6 +314,8 @@ public class Rocket : MonoBehaviour
 
         hookProperties.UnloadRocket(gameObject);
         yield return new WaitForSeconds(0.5f);
+        CheckTargetHealth();
+
         tr.emitting = true;
 
         startSpot = transform.position;
@@ -283,6 +333,34 @@ public class Rocket : MonoBehaviour
         if (attached)
         {
             StartCoroutine(Disengage());
+        }
+    }
+
+    void CheckTargetHealth()
+    {
+        if (targetHook != null)
+        {
+            return;
+        } else
+        {
+            StopAllCoroutines();
+            Destroy(gameObject);
+        }
+    }
+
+
+    public void UpgradeRocket(int index)
+    {
+        switch (index)
+        {
+            case (0):
+                heal.health += (4f * upgrades[0].currentUpgrades);
+                heal.GetComponent<Health>().currentHealth = heal.health;
+                break;
+            default:
+                Debug.Log("Supplied index is outside of those given by the upgrades list.");
+                break;
+
         }
     }
 

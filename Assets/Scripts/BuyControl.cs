@@ -6,6 +6,7 @@ public class BuyControl : MonoBehaviour
     public Camera mainCam;
 
     [SerializeField] RocketControl houston;
+    public int thingsBought { get; private set; }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -32,6 +33,7 @@ public class BuyControl : MonoBehaviour
         //this logic feels weirdly circular and confusing. Theres a cleaner way to do this that hasnt gotten through my thick skull
         prev.GetComponent<Preview>().realVersion = selectedBuy;
         prev.GetComponent<Preview>().cost = price;
+        thingsBought++;
 
     }
 

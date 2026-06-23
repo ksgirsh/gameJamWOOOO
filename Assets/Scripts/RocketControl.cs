@@ -55,8 +55,20 @@ public class RocketControl : MonoBehaviour
         
         if (select.lockedHooks.Count == 0 && (select.nearestHook.GetComponent<Satellite>().loadedRockets.Count >= select.nearestHook.GetComponent<Satellite>().maxRockets))
         {
+            Debug.Log("Too many rockets already on hook.");
             return;
+
         }
+
+        if (select.lockedHooks.Count != 0)
+        {
+            if (select.lockedHooks[0].GetComponent<Satellite>().loadedRockets.Count >= select.lockedHooks[0].GetComponent<Satellite>().maxRockets)
+            {
+                Debug.Log("Too many rockets already on hook.");
+                return;
+            }
+        }
+
 
         float normalAngle = (Mathf.Atan2(normal.y, normal.x)) * Mathf.Rad2Deg;
         Quaternion normalQuaternion = Quaternion.Euler(0f, 0f, normalAngle - 90f);
@@ -92,7 +104,12 @@ public class RocketControl : MonoBehaviour
         float totalDistance = 0f;
         foreach (GameObject rock in rockets)
         {
-            totalDistance += (int)rock.GetComponent<Rocket>().distanceTravelled;
+            //idk why i have to include this
+            if (rock != null)
+            {
+                totalDistance += (int)rock.GetComponent<Rocket>().distanceTravelled;
+            }
+
         }
         meters = totalDistance + savedDistance;
         string txt = (meters).ToString() + " km";

@@ -117,7 +117,18 @@ MonoBehaviour:
   distanceTravelled: 0
   debugPrefab: {fileID: 1768601570894354729, guid: ce59c9182a2429547a46e230f950d4d5, type: 3}
   houston: {fileID: 0}
-  rocketPrice: 5
+  rocketPrice: 1
+  upgrades:
+  - cost: 50
+    maxUpgrades: 3
+    currentUpgrades: 0
+    magnitude: 0
+  upgradeDropdownDisplay:
+  - m_Text: Longer Lifetime
+    m_Image: {fileID: 0}
+    m_Color: {r: 0, g: 0, b: 0, a: 0}
+  heal: {fileID: -5324418835853834662}
+  <identifier>k__BackingField: Basic Rocket
 --- !u!50 &-5951365827162519020
 Rigidbody2D:
   serializedVersion: 5

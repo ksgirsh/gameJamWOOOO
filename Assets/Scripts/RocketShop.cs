@@ -57,6 +57,21 @@ public class RocketShop : MonoBehaviour
             panelProperties.consumePrice = rocketPurchasables[i].price;
             panelProperties.shop = this;
 
+            //store upgrade possibilities in panel
+
+            Rocket thisRocket = rocketPurchasables[i].item.GetComponent<Rocket>();
+
+            panelProperties.AddBlankUpgrades(thisRocket.upgrades.Count);
+            
+            for (int j = 0; j < thisRocket.upgrades.Count; j++)
+            {
+                //clones upgrades list from the rocket prefab to the panel
+                panelProperties.upgrades[j].cost = thisRocket.upgrades[j].cost;
+                panelProperties.upgrades[j].maxUpgrades = thisRocket.upgrades[j].maxUpgrades;
+                panelProperties.upgrades[j].currentUpgrades = thisRocket.upgrades[j].currentUpgrades;
+                panelProperties.upgrades[j].magnitude = thisRocket.upgrades[j].magnitude;
+            }
+
             panelProperties.InitUnlockLogic();
         }
     }

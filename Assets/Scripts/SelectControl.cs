@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
+using TMPro;
 
 public class SelectControl : MonoBehaviour
 {
@@ -44,7 +45,6 @@ public class SelectControl : MonoBehaviour
             if (satellite.GetComponent<Satellite>().orbitRadius < cachedRad)
             {
                 cachedRad = satellite.GetComponent<Satellite>().orbitRadius;
-                Debug.Log(cachedRad);
                 cachedSatellite = satellite;
             }
         }
@@ -64,7 +64,8 @@ public class SelectControl : MonoBehaviour
 
         if (Input.GetButtonDown("Fire2") && lockedHooks.Count > 0)
         {
-            EraseLockOn(0);
+            //erases most recent lock on trigger
+            EraseLockOn(lockedHooks.Count - 1);
         }
 
         if (lockedHooks.Count > 0)
@@ -87,13 +88,7 @@ public class SelectControl : MonoBehaviour
             }
         }
 
-        if (hook.GetComponent<Satellite>().loadedRockets.Count >= hook.GetComponent<Satellite>().maxRockets)
-        {
-            Debug.Log("Too many rockets already on hook.");
-            return;
-        }
         
-
         //selection magic
         Transform hookTrans = hook.transform;
         currentSelObj = GameObject.Instantiate(selectEffect, hook.transform.position, transform.rotation, hookTrans);
@@ -103,6 +98,10 @@ public class SelectControl : MonoBehaviour
 
         hookCam.GetComponent<AttachToObject>().target = hookTrans;
         panel.SetActive(true);
+
+        //holy reference batman
+        UISingleton.instance.skyHealth.SetActive(true);
+        UISingleton.instance.skyHealth.GetComponent<HookHealthDisplay>().satHealth = hook.GetComponent<Health>();
     }
 
     public void EraseTrigger()
@@ -111,9 +110,13 @@ public class SelectControl : MonoBehaviour
 
         selectedHook = null;
 
-        hookCam.SetParent(null);
+        if (lockedHooks.Count == 0)
+        {
+            hookCam.SetParent(null);
 
-        panel.SetActive(false);
+            panel.SetActive(false);
+            UISingleton.instance.skyHealth.SetActive(false);
+        }
 
     }
 
@@ -121,31 +124,43 @@ public class SelectControl : MonoBehaviour
     {
         //you should not be able to lock onto already locked hooks, because you have to be selecting a hook to lock onto it. Selecting already queries locked hooks, so we're fine.
 
-        GameObject lockObj = GameObject.Instantiate(lockEffect, currentSelObj.transform.position, Quaternion.identity, currentSelObj.transform.parent);
-        lockObj.transform.localPosition = Vector3.zero;
-        Destroy(currentSelObj);
+        if (selectedHook != null)
+        {
+            GameObject lockObj = GameObject.Instantiate(lockEffect, currentSelObj.transform.position, Quaternion.identity, currentSelObj.transform.parent);
+            lockObj.transform.localPosition = Vector3.zero;
+            Destroy(currentSelObj);
 
+
+
+            lockedHooks.Add(selectedHook);
+            currentLockEffects.Add(lockObj);
+
+            int mostRecent = (lockedHooks.Count - 1);
+            //Update Hook Upgrade Options with most recently locked Hook
+            Satellite sat = lockedHooks[mostRecent].GetComponent<Satellite>();
+            hookUpgrader.satelliteToUpgrade = sat;
+
+            hookUpgrader.LockedHooksToList();
+            if (hookUpgrader.GetComponent<TMP_Dropdown>().interactable)
+            {
+                hookUpgrader.ChangeUpgrades((sat.upgradeDropdownDisplay), sat.GetListOfPrices(), sat.GetListOfRemainingUpgrades());
+            }
+
+
+            hookCam.GetComponent<AttachToObject>().target = lockedHooks[mostRecent].transform;
+
+            panel.SetActive(true);
+            UISingleton.instance.skyHealth.SetActive(true);
+            UISingleton.instance.skyHealth.GetComponent<HookHealthDisplay>().satHealth = lockedHooks[mostRecent].GetComponent<Health>();
+
+            selectedHook = null;
+        }
         
-
-        lockedHooks.Add(selectedHook);
-        currentLockEffects.Add(lockObj);
-
-        //Update Hook Upgrade Options with most recently locked Hook
-        Satellite sat = lockedHooks[0].GetComponent<Satellite>();
-        hookUpgrader.satelliteToUpgrade = sat;
-        hookUpgrader.ChangeUpgrades((sat.upgradeDropdownDisplay), sat.GetListOfPrices(), sat.GetListOfRemainingUpgrades());
-        
-
-        selectedHook = null;
     }
 
     public void EraseLockOn(int index)
     {
         Destroy(currentLockEffects[index]);
-
-        //this is evil but its been 2 hours and i cant think of a better way
-        Satellite satI = lockedHooks[index].GetComponent<Satellite>();
-        satI.ResetOptionsText();
 
         lockedHooks.Remove(lockedHooks[index]);
         currentLockEffects.Remove(currentLockEffects[index]);
@@ -160,17 +175,25 @@ public class SelectControl : MonoBehaviour
                 if (rockShop.selectedPanel != null)
                 {
                     UISingleton.instance.ToggleDropdown(3);
+                    UISingleton.instance.skyHealth.SetActive(false);
 
                 } else
                 {
                     UISingleton.instance.ToggleDropdown(1);
+                    UISingleton.instance.skyHealth.SetActive(false);
                 }
             }
-            
+
+            hookCam.SetParent(null);
+
+            panel.SetActive(false);
+            UISingleton.instance.skyHealth.SetActive(false);
+
         } else
         {
             Satellite sat = lockedHooks[0].GetComponent<Satellite>();
             hookUpgrader.satelliteToUpgrade = sat;
+            hookUpgrader.LockedHooksToList();
             hookUpgrader.ChangeUpgrades((sat.upgradeDropdownDisplay), sat.GetListOfPrices(), sat.GetListOfRemainingUpgrades());
             
         }

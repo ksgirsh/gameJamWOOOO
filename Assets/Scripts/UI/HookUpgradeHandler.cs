@@ -11,13 +11,19 @@ public class HookUpgradeHandler : MonoBehaviour
     //public List<Satellite> satellitesToUpgrade;
     public Satellite satelliteToUpgrade;
     [SerializeField] RocketControl houston;
+    [SerializeField] SelectControl select;
 
-    [SerializeField] Image healthMat;
+    [SerializeField] TextMeshProUGUI primaryText;
+
+
+    public List<Satellite> satellitesToUpgrade;
+    bool canUpgrade = true;
 
     void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         houston = player.GetComponent<RocketControl>();
+        select = player.GetComponent<SelectControl>();
 
         dropdown = gameObject.GetComponent<TMP_Dropdown>();
 
@@ -33,14 +39,24 @@ public class HookUpgradeHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthMat.material.SetFloat("_Health", (satelliteToUpgrade.gameObject.GetComponent<Health>().NormalizedHealth()));
+       if (satellitesToUpgrade.Count > 1)
+       {
+          string write = string.Concat("Upgrade Hooks", " x", satellitesToUpgrade.Count);
+          primaryText.text = write;
+       } else
+       {
+          primaryText.text = "Upgrade Hook";
+       }
 
+        if (dropdown.IsExpanded)
+        {
+            UpdateText();
+        }
     }
 
     //This function is called in Select Control (FYI). Me commenting down where this function is called is probably a sign of bad code. But uhh. i only have 5 days okay cut me a break
     public void ChangeUpgrades(List<TMP_Dropdown.OptionData> options, List<int> prices, List<int> remUpgr)
     {
-        
         dropdown.options.Clear();
 
         //instancing the options prevents modifying the root satellite "options" variable, which is nice :)
@@ -51,10 +67,37 @@ public class HookUpgradeHandler : MonoBehaviour
         {
 
             //future change: remaining upgrade should be equal to the MINIMUM amount of upgrades among the selected list
-            string addendum = string.Concat(" - ", prices[i].ToString(), "km (x", remUpgr[i].ToString(), ") ");
-            string predendum = options[i].text;
+
+            //-- i represents the upgrade. get all of the remaining upgrades for THIS upgrade
+            List<int> remUpgradesThisUpg = new List<int>{ };
+            foreach (Satellite sat in satellitesToUpgrade)
+            {
+                if (i >= sat.upgrades.Count)
+                {
+                    break;
+
+                }
+
+                int thisRemainingUpgrade = (sat.upgrades[i].maxUpgrades - sat.upgrades[i].currentUpgrades);
+                remUpgradesThisUpg.Add(thisRemainingUpgrade);
+            }
+
+            int minimumRemainingUpgrade = remUpgradesThisUpg[0];
+            for (int k = 0; k < remUpgradesThisUpg.Count; k++)
+            {
+                if (minimumRemainingUpgrade > remUpgradesThisUpg[k])
+                {
+                    minimumRemainingUpgrade = remUpgradesThisUpg[k];
+                }
+            }
+
+
+            string addendum = string.Concat(" - ", (prices[i]).ToString());
+            //if there is already an addendum, remove it
+            string predendum = ((options[i].text).Replace(addendum, ""));
 
             options[i].text = string.Concat(predendum, addendum);
+
         }
 
 
@@ -69,24 +112,119 @@ public class HookUpgradeHandler : MonoBehaviour
 
     public void GetDropdownValue()
     {
-        int pickedEntryIndex = dropdown.value;
+       
+            int pickedEntryIndex = dropdown.value;
+            //cost of upgrading multiple satellites
+            int totalCost = ((satellitesToUpgrade[0].upgrades[pickedEntryIndex].cost) * satellitesToUpgrade.Count);
+            
+            if ((houston.meters - totalCost) >= 0)
+            {
+                foreach (Satellite sat in satellitesToUpgrade)
+                {
+                    if (sat.upgrades[pickedEntryIndex].currentUpgrades < sat.upgrades[pickedEntryIndex].maxUpgrades)
+                    {
+                        sat.UpgradeHook(pickedEntryIndex);
+                    } else
+                    {
+                        //refund purchase
+                        houston.savedDistance += sat.upgrades[pickedEntryIndex].cost;
+                    }      
+                }
+                houston.savedDistance -= totalCost;
+                ChangeUpgrades(satelliteToUpgrade.upgradeDropdownDisplay, satelliteToUpgrade.GetListOfPrices(), satelliteToUpgrade.GetListOfRemainingUpgrades());
 
-        if ((houston.meters - satelliteToUpgrade.upgrades[pickedEntryIndex].cost) >= 0)
-        {
-            satelliteToUpgrade.UpgradeHook(pickedEntryIndex);
-            houston.savedDistance -= satelliteToUpgrade.upgrades[pickedEntryIndex].cost;
-            satelliteToUpgrade.ResetOptionsText(1, pickedEntryIndex);
-            ChangeUpgrades(satelliteToUpgrade.upgradeDropdownDisplay, satelliteToUpgrade.GetListOfPrices(), satelliteToUpgrade.GetListOfRemainingUpgrades());
-
-        } else
-        {
-            Debug.Log("Not Enough Money, Come back when you're a little-- mmmmmm RICHER!");
-        }
+            }
+            else
+            {
+                Debug.Log("Not Enough Money, Come back when you're a little-- mmmmmm RICHER!");
+            }
 
 
         dropdown.SetValueWithoutNotify(-1);
 
+
+    }
+
+    public void LockedHooksToList()
+    {
+        satellitesToUpgrade.Clear();
+
+        foreach (GameObject hook in select.lockedHooks)
+        {
+            satellitesToUpgrade.Add(hook.GetComponent<Satellite>());
+        }
+
+        string cachedIdent = "";
+
+        for (int i = 0; i < satellitesToUpgrade.Count; i++)
+        {
+            Satellite satID = satellitesToUpgrade[i];
+
+            if (i == 0)
+            {
+                cachedIdent = satID.identifier;
+            }
+
+            if (cachedIdent == satID.identifier)
+            {
+                continue;
+
+            }
+            else
+            {
+
+                //Debug.Log("Mismatch in selected hooks");
+                satellitesToUpgrade.RemoveAt(i);
+                dropdown.interactable = false;
+                //canUpgrade = false;
+                return;
+            }
+        }
+
+       // canUpgrade = true;
+        dropdown.interactable = true;
+        //Debug.Log("All hooks of the same type");
     }
 
 
+    void UpdateText()
+    {
+        List<GameObject> remText = new List<GameObject> { };
+        ComponentSort[] allRemText = dropdown.gameObject.GetComponentsInChildren<ComponentSort>();
+        foreach (ComponentSort sort in allRemText)
+        {
+            remText.Add(sort.gameObject);
+        }
+
+        for (int i = 0; i < remText.Count; i++)
+        {
+            //-- i represents the upgrade. get all of the remaining upgrades for THIS upgrade
+            List<int> remUpgradesThisUpg = new List<int> { };
+            foreach (Satellite sat in satellitesToUpgrade)
+            {
+                if (i >= sat.upgrades.Count)
+                {
+                    break;
+
+                }
+
+                int thisRemainingUpgrade = (sat.upgrades[i].maxUpgrades - sat.upgrades[i].currentUpgrades);
+                remUpgradesThisUpg.Add(thisRemainingUpgrade);
+            }
+
+            int minimumRemainingUpgrade = remUpgradesThisUpg[0];
+            for (int k = 0; k < remUpgradesThisUpg.Count; k++)
+            {
+                if (minimumRemainingUpgrade > remUpgradesThisUpg[k])
+                {
+                    minimumRemainingUpgrade = remUpgradesThisUpg[k];
+                }
+            }
+
+            remText[i].GetComponent<TextMeshProUGUI>().text = string.Concat(" x" + minimumRemainingUpgrade.ToString());
+
+
+        }
+
+    }
 }

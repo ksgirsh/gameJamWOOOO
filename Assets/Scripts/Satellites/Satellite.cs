@@ -28,6 +28,7 @@ public class Satellite : MonoBehaviour
 
     public bool auto = true;
 
+
     
 
     [System.Serializable]
@@ -40,6 +41,9 @@ public class Satellite : MonoBehaviour
     public List<Upgrade> upgrades;
 
     public List<TMP_Dropdown.OptionData> upgradeDropdownDisplay;
+
+    [Header("Identity")]
+    [field:SerializeField] public string identifier { get; private set; }
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -133,20 +137,29 @@ public class Satellite : MonoBehaviour
                 Debug.Log("Upgrade index outside of registered options");
                 break;
             case 0:
-                rb.angularVelocity = 0f;
-                rotateVelocity += 1f;
-                rb.AddTorque(rotateVelocity, ForceMode2D.Impulse);
 
+                if (upgrades[index].currentUpgrades < upgrades[index].maxUpgrades)
+                {
+                    rb.angularVelocity = 0f;
+                    rotateVelocity += 2f;
+                    rb.AddTorque(rotateVelocity, ForceMode2D.Impulse);
+                }
                 break;
+
             case 1:
-                orbitVelocity += 2f;
 
+                if (upgrades[index].currentUpgrades < upgrades[index].maxUpgrades)
+                {
+                    orbitVelocity += 2f;
+                }
                 break;
+
             case 2:
-
-                gameObject.GetComponent<Health>().health += (90f * (upgrades[index].currentUpgrades + 1));
-                gameObject.GetComponent<Health>().currentHealth = gameObject.GetComponent<Health>().health;
-
+                if (upgrades[index].currentUpgrades < upgrades[index].maxUpgrades)
+                {
+                    gameObject.GetComponent<Health>().health += (90f * (upgrades[index].currentUpgrades + 1));
+                    gameObject.GetComponent<Health>().currentHealth = gameObject.GetComponent<Health>().health;
+                }
                 break;
 
 
@@ -185,13 +198,29 @@ public class Satellite : MonoBehaviour
 
         for (int i = 0; i < upgradeDropdownDisplay.Count; i++)
         {
+            List<int> remUpgradesThisUpg = new List<int> { };
+            foreach (Satellite sat in (UISingleton.instance.skyUpgradeDrop.GetComponent<HookUpgradeHandler>().satellitesToUpgrade))
+            {
+                
+                int thisRemainingUpgrade = (sat.upgrades[i].maxUpgrades - sat.upgrades[i].currentUpgrades);
+                remUpgradesThisUpg.Add(thisRemainingUpgrade);
+            }
+
+            int minimumRemainingUpgrade = remUpgradesThisUpg[0];
+            for (int k = 0; k < remUpgradesThisUpg.Count; k++)
+            {
+                if (minimumRemainingUpgrade > remUpgradesThisUpg[k])
+                {
+                    minimumRemainingUpgrade = remUpgradesThisUpg[k];
+                }
+            }
 
             //future change: remaining upgrade should be equal to the MINIMUM amount of upgrades among the selected list
-            string addendum = string.Concat(" - ", prices[i].ToString(), "km (x", (remUpgr[i]).ToString(), ") ");
+            string addendum = string.Concat(" - ", prices[i].ToString(), "km (x", (minimumRemainingUpgrade).ToString(), ") ");
 
             if (i == boughtIndex)
             {
-                addendum = string.Concat(" - ", prices[i].ToString(), "km (x", (remUpgr[i] + justBought).ToString(), ") ");
+                addendum = string.Concat(" - ", prices[i].ToString(), "km (x", (minimumRemainingUpgrade + justBought).ToString(), ") ");
             }
 
             upgradeDropdownDisplay[i].text = (upgradeDropdownDisplay[i].text).Replace(addendum, "");

@@ -9,7 +9,8 @@ public class UISingleton : MonoBehaviour
     [field: SerializeField] public GameObject shopDrop { get; private set; }
     [field: SerializeField] public GameObject skyUpgradeDrop { get; private set; }
     [field: SerializeField] public GameObject rockUpgradeDrop { get; private set; }
-
+    [field: SerializeField] public GameObject skyHealth { get; private set; }
+    private HookHealthDisplay hookHeal;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class UISingleton : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        hookHeal = skyHealth.GetComponent<HookHealthDisplay>();
         ToggleDropdown(1);
     }
 
@@ -45,6 +47,7 @@ public class UISingleton : MonoBehaviour
             skyUpgradeDrop.SetActive(true);
             rockUpgradeDrop.SetActive(false);
             shopDrop.SetActive(false);
+
         }
 
         if (dropdown == 3)
@@ -59,4 +62,5 @@ public class UISingleton : MonoBehaviour
             Debug.Log("Dropdown index is out of Range, fix code so it toggles the right thing");
         }
     }
+
 }
