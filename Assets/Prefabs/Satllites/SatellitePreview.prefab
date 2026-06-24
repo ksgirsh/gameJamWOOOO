@@ -295,3 +295,5 @@ MonoBehaviour:
   cost: 0
   placeableColor: {r: 0, g: 1, b: 0.11764707, a: 0.5019608}
   unplaceableColor: {r: 1, g: 0, b: 0, a: 0.5019608}
+  sfx:
+  - {fileID: 8300000, guid: 11ab3a0b196c4764499679dd85f399ed, type: 3}

@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 83.4, y: 8.6}
+  m_AnchoredPosition: {x: 83.4, y: 12.8}
   m_SizeDelta: {x: 400, y: 49}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3720575825567085126
@@ -166,7 +166,7 @@ RectTransform:
   m_GameObject: {fileID: 4918190271398053976}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8324251314262988993}
@@ -242,6 +242,10 @@ MonoBehaviour:
   lockedColor: {r: 0.35686275, g: 0.5188529, b: 0.7058824, a: 0.5019608}
   inactiveColor: {r: 0, g: 0, b: 0, a: 0.5019608}
   selectedColor: {r: 0.2209156, g: 0.7169812, b: 0.14542542, a: 0.5019608}
+  selectedForUpgrade: 0
+  sfx:
+  - {fileID: 8300000, guid: 4ac4c432f07d44e4eb1c45d67b0b5472, type: 3}
+  - {fileID: 8300000, guid: 6468df38acb473f43a5c20d484c5d75f, type: 3}
 --- !u!114 &5888802806066981478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,7 +401,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 83.4, y: -45}
+  m_AnchoredPosition: {x: 83.4, y: -50.6}
   m_SizeDelta: {x: 402, y: 49}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4829367175914779036

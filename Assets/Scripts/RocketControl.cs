@@ -15,13 +15,19 @@ public class RocketControl : MonoBehaviour
     public List<GameObject> nonAutoRockets;
 
     [SerializeField] TextMeshProUGUI metersText;
+    [SerializeField] TextMeshProUGUI metalText;
 
     public GameObject planet;
     private Planet plntScript;
 
     public float savedDistance;
+    public int savedMetal;
 
     public float meters;
+
+    [Header("Sound")]
+    //0 is place rocket
+    [SerializeField] AudioClip[] sfx;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -48,6 +54,7 @@ public class RocketControl : MonoBehaviour
 
 
         ProcessTotalDistance();
+        SetMetal();
     }
 
     public void SpawnRocket(Vector2 position, Vector2 normal)
@@ -69,9 +76,12 @@ public class RocketControl : MonoBehaviour
             }
         }
 
+        //placed rocket sfx
+        AudioClip place = sfx[0];
+        SoundFXManager.instance.PlaySoundEffectClip(place, Vector2.zero, 1f);
 
         float normalAngle = (Mathf.Atan2(normal.y, normal.x)) * Mathf.Rad2Deg;
-        Quaternion normalQuaternion = Quaternion.Euler(0f, 0f, normalAngle - 90f);
+        Quaternion normalQuaternion = Quaternion.Euler(0f, 0f, normalAngle);
         GameObject rocketInstance = GameObject.Instantiate(rocketPrefab, position, normalQuaternion);
 
         rockets.Add(rocketInstance);
@@ -114,6 +124,12 @@ public class RocketControl : MonoBehaviour
         meters = totalDistance + savedDistance;
         string txt = (meters).ToString() + " km";
         metersText.text = txt;
+    }
+
+    void SetMetal()
+    {
+        string txt = savedMetal.ToString() + " t";
+        metalText.text = txt;
     }
 
 }

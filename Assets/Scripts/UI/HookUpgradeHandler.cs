@@ -4,8 +4,9 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.EventSystems;
 
-public class HookUpgradeHandler : MonoBehaviour
+public class HookUpgradeHandler : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] TMP_Dropdown dropdown;
     //public List<Satellite> satellitesToUpgrade;
@@ -18,6 +19,10 @@ public class HookUpgradeHandler : MonoBehaviour
 
     public List<Satellite> satellitesToUpgrade;
     bool canUpgrade = true;
+
+
+    //0 is select, 1 is purchase
+    [SerializeField] AudioClip[] sfx;
 
     void Start()
     {
@@ -124,7 +129,10 @@ public class HookUpgradeHandler : MonoBehaviour
                     if (sat.upgrades[pickedEntryIndex].currentUpgrades < sat.upgrades[pickedEntryIndex].maxUpgrades)
                     {
                         sat.UpgradeHook(pickedEntryIndex);
-                    } else
+
+                        AudioClip purchase = sfx[1];
+                        SoundFXManager.instance.PlaySoundEffectClip(purchase, Vector2.zero, 1f);
+                } else
                     {
                         //refund purchase
                         houston.savedDistance += sat.upgrades[pickedEntryIndex].cost;
@@ -224,6 +232,18 @@ public class HookUpgradeHandler : MonoBehaviour
             remText[i].GetComponent<TextMeshProUGUI>().text = string.Concat(" x" + minimumRemainingUpgrade.ToString());
 
 
+        }
+
+    }
+
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        //left click
+        if (eventData.pointerId == -1)
+        {
+            AudioClip select = sfx[0];
+            SoundFXManager.instance.PlaySoundEffectClip(select, Vector2.zero, 1f);
         }
 
     }

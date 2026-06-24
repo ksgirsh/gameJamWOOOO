@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class AsteroidTarget : TargetAttribute
 {
@@ -6,8 +7,12 @@ public class AsteroidTarget : TargetAttribute
     float shrinkF = 0.8f;
     Rigidbody2D rb;
     [SerializeField] float asteroidMoveSpeed;
-    bool beingMined = false;
+    public bool beingMined = false;
     float maxRange;
+    Health health;
+    RocketControl houston;
+    int metalAmt;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
@@ -23,6 +28,12 @@ public class AsteroidTarget : TargetAttribute
         
 
         maxRange = camObj.GetComponent<CameraM>().maxSize;
+        health = gameObject.GetComponent<Health>();
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        houston = player.GetComponent<RocketControl>();
+
+        metalAmt = 100 + (Random.Range(-50, 200));
 
     }
 
@@ -38,6 +49,13 @@ public class AsteroidTarget : TargetAttribute
             //Trigger Destroy
             TriggerDestroy();
         }
+
+        if (beingMined && health != null)
+        {
+            //triple decay rate
+            health.currentHealth -= (Time.deltaTime * 2f);
+        }
+
     }
 
     bool IsWithinCamera()
@@ -125,5 +143,20 @@ public class AsteroidTarget : TargetAttribute
 
         return cachedRad;
     }
+
+
+    public void TakeDamage(float damage)
+    {
+        if (((health.currentHealth - damage) <= 0) && houston != null)
+        {
+            houston.savedMetal += metalAmt;
+        } else
+        {
+            health.currentHealth -= damage;
+            houston.savedMetal += (int)Mathf.Round((metalAmt / (Random.Range(10f, 90f))));
+        }
+    }
+
+
 
 }

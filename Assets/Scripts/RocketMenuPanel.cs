@@ -41,6 +41,9 @@ public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
 
     private RocketUpgradeHandler rockUpgr;
 
+    //0 is select, 1 is unlock
+    [SerializeField] AudioClip[] sfx;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -87,6 +90,10 @@ public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
             unlocked = true;
             bgColor.color = inactiveColor;
 
+            //unlock
+            AudioClip unlock = sfx[1];
+            SoundFXManager.instance.PlaySoundEffectClip(unlock, Vector2.zero, 1f);
+
         }
         else if (unlocked == true)
         {
@@ -115,8 +122,10 @@ public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
                 DeactivatePanel();
             }
 
-        }
+            AudioClip select = sfx[0];
+            SoundFXManager.instance.PlaySoundEffectClip(select, Vector2.zero, 1f);
 
+        }
 
 
 

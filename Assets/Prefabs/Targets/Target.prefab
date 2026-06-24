@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6908931193716692175}
   - component: {fileID: 6120646549360396573}
   - component: {fileID: 3461729900318370086}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Target
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MeterTarget
   identifier: Meter Target
   ps: {fileID: 7374616225088517498}
-  spawnChance: 1000
+  spawnChance: 2000
   targetPoints: 275
 --- !u!114 &3461729900318370086
 MonoBehaviour:
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a329997c952af2043ae84a5bbf970cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  health: 200
+  health: 100
   currentHealth: 0
   decay: 1
 --- !u!1 &2542467506298033892

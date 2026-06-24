@@ -285,7 +285,7 @@ MonoBehaviour:
   - cost: 100
     maxUpgrades: 1
     currentUpgrades: 0
-  - cost: 300
+  - cost: 50
     maxUpgrades: 3
     currentUpgrades: 0
   upgradeDropdownDisplay:

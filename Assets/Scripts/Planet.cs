@@ -30,16 +30,28 @@ public class Planet : MonoBehaviour
 
     void OnMouseEnter()
     {
-        currentRocketObj = GameObject.Instantiate(rocketHoverEffect, MouseToSurfaceRay(this.transform), Quaternion.identity, this.transform);
-        rocket.planet = gameObject;
+        if ((mainCamera.ScreenToWorldPoint(Input.mousePosition)).magnitude > 2)
+        {
+            currentRocketObj = GameObject.Instantiate(rocketHoverEffect, MouseToSurfaceRay(this.transform), Quaternion.identity, this.transform);
+            rocket.planet = gameObject;
+        }
+
     }
 
     void OnMouseOver()
     {
 
-        Vector2 rayPoint = MouseToSurfaceRay(this.transform);
-        currentRocketObj.transform.position = new Vector3(rayPoint.x, rayPoint.y, 0f);
-       // Debug.Log(rayPoint);
+        if (currentRocketObj != null)
+        {
+            Vector2 rayPoint = MouseToSurfaceRay(this.transform);
+            currentRocketObj.transform.position = new Vector3(rayPoint.x, rayPoint.y, 0f);
+            if ((mainCamera.ScreenToWorldPoint(Input.mousePosition)).magnitude < 10.04f)
+            {
+
+                OnMouseExit();
+            }
+        }
+        
 
     }
     void OnMouseExit()

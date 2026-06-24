@@ -110,7 +110,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   targetHook: {fileID: 0}
   normalVector: {x: 0, y: 0}
-  rocketSpeed: 1
   attachOffset: 0.105
   hookProperties: {fileID: 0}
   trueDistance: 0
@@ -129,6 +128,10 @@ MonoBehaviour:
     m_Color: {r: 0, g: 0, b: 0, a: 0}
   heal: {fileID: -5324418835853834662}
   <identifier>k__BackingField: Basic Rocket
+  sfx:
+  - {fileID: 8300000, guid: af1856c6bed24b14db9679251f10f5bf, type: 3}
+  - {fileID: 8300000, guid: e110689d24335fa4fb0865840ac4f31d, type: 3}
+  - {fileID: 8300000, guid: b17dfe4289e38754c87db339a906023d, type: 3}
 --- !u!50 &-5951365827162519020
 Rigidbody2D:
   serializedVersion: 5
@@ -300,7 +303,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0020059943, y: 0.002006054}
+  m_Offset: {x: 0.0055491924, y: 0.007911682}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -310,7 +313,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.12133157, y: 0.32194042}
+  m_Size: {x: 0.3882656, y: 0.17311883}
   m_EdgeRadius: 0
 --- !u!114 &-5324418835853834662
 MonoBehaviour:

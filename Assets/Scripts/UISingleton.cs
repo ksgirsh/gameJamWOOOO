@@ -10,6 +10,7 @@ public class UISingleton : MonoBehaviour
     [field: SerializeField] public GameObject skyUpgradeDrop { get; private set; }
     [field: SerializeField] public GameObject rockUpgradeDrop { get; private set; }
     [field: SerializeField] public GameObject skyHealth { get; private set; }
+    [field: SerializeField] public GameObject playUI { get; private set; }
     private HookHealthDisplay hookHeal;
 
     private void Awake()

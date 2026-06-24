@@ -141,7 +141,7 @@ public class Satellite : MonoBehaviour
                 if (upgrades[index].currentUpgrades < upgrades[index].maxUpgrades)
                 {
                     rb.angularVelocity = 0f;
-                    rotateVelocity += 2f;
+                    rotateVelocity += 5f;
                     rb.AddTorque(rotateVelocity, ForceMode2D.Impulse);
                 }
                 break;

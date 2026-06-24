@@ -11,12 +11,12 @@ public class Rocket : MonoBehaviour
     private Vector2 targetPosition;
 
 
-    [SerializeField] float rocketSpeed = 1;
+    protected float rocketSpeed = 1;
     [SerializeField] float attachOffset = 0.105f;
     public Satellite hookProperties;
     private float hookAngSpeed;
     private float hookRotationSpeed;
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
 
     private float hookRad;
     public float trueDistance;
@@ -27,9 +27,9 @@ public class Rocket : MonoBehaviour
 
     [SerializeField] GameObject debugPrefab;
 
-    private TrailRenderer tr;
+    protected TrailRenderer tr;
     float attachedAngle = 0;
-    bool tracking;
+    protected bool tracking;
     bool attached = false;
 
     public RocketControl houston;
@@ -46,11 +46,16 @@ public class Rocket : MonoBehaviour
     public List<Upgrade> upgrades;
 
     public List<TMP_Dropdown.OptionData> upgradeDropdownDisplay;
-    [SerializeField] Health heal;
+    [SerializeField] protected Health heal;
 
     private RocketMenuPanel rockPanel;
     [field:SerializeField] public string identifier { get; private set; }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    [Header("Sound")]
+    //0 is launch, 1 is catch, 2 is throw
+    [SerializeField] AudioClip[] sfx;
+
     void Start()
     {
 
@@ -100,14 +105,15 @@ public class Rocket : MonoBehaviour
             houston.nonAutoRockets.Add(gameObject);
         }
 
+        heal = gameObject.GetComponent<Health>();
     }
 
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         //STUFF FOR AIM-HOOKS
-        if (targetHook != null)
+        if (targetHook != null && hookProperties != null)
         {
             if (hookProperties.auto == false)
             {
@@ -141,7 +147,7 @@ public class Rocket : MonoBehaviour
 
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (tracking)
         {
@@ -221,7 +227,10 @@ public class Rocket : MonoBehaviour
         float duration = (trueDistance / rocketSpeed);
         Vector2 initPos = transform.position;
 
-        //calc targetPos
+        //launch sfx
+        AudioClip launch = sfx[0];
+        SoundFXManager.instance.PlaySoundEffectClip(launch, Vector2.zero, 1f);
+
 
         for (float i = 0; i < duration; i += Time.deltaTime)
         {
@@ -235,6 +244,8 @@ public class Rocket : MonoBehaviour
         }
         CheckTargetHealth();
 
+
+
         transform.position = hookProperties.hookPoint.position;
         targetHook.transform.rotation = transform.rotation;
         transform.parent = hookProperties.hookPoint;
@@ -245,10 +256,13 @@ public class Rocket : MonoBehaviour
         float initAng = angles.z;
 
         attachedAngle = initAng;
-        Quaternion newRotationQ = Quaternion.Euler(0f, 0f, (initAng - 90));
+        Quaternion newRotationQ = Quaternion.Euler(0f, 0f, (initAng));
         transform.rotation = newRotationQ;
 
-        
+        //attach sfx
+        AudioClip attach = sfx[1];
+        SoundFXManager.instance.PlaySoundEffectClip(attach, Vector2.zero, 1f);
+
         if (hookProperties.auto == true)
         {
             yield return new WaitForSeconds((2 * Mathf.PI) / hookRotationSpeed);
@@ -267,7 +281,7 @@ public class Rocket : MonoBehaviour
         // assuming v is the hook and w is the ideal position, if a positive scalar is returned then use minor , if a negative scalar is returned use major
     }
 
-    IEnumerator EraseRocket(float initDelay)
+    protected virtual IEnumerator EraseRocket(float initDelay)
     {
         yield return new WaitForSeconds(initDelay);
 
@@ -276,7 +290,7 @@ public class Rocket : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void OnTriggerEnter2D(Collider2D coll)
+    protected virtual void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.tag == "Target")
         {
@@ -304,13 +318,12 @@ public class Rocket : MonoBehaviour
             CheckTargetHealth();
         }
 
-        //Quaternion newRotationQ2 = Quaternion.Euler(0f, 0f, (attachedAngle));
-        //transform.rotation = newRotationQ2;
+        //throw sfx
+        AudioClip throwR = sfx[2];
+        SoundFXManager.instance.PlaySoundEffectClip(throwR, Vector2.zero, 1f);
 
-        //Quaternion newRotationQ = Quaternion.Euler(0f, 0f, (attachedAngle - 90));
+        rb.AddForce(transform.right * ((hookRotationSpeed + (hookAngSpeed / hookRad)) + (rocketSpeed - 1)), ForceMode2D.Impulse);
 
-        rb.AddForce(transform.up * ((hookRotationSpeed + (hookAngSpeed / hookRad)) + (rocketSpeed - 1)), ForceMode2D.Impulse);
-        //transform.rotation = newRotationQ;
 
         hookProperties.UnloadRocket(gameObject);
         yield return new WaitForSeconds(0.5f);
@@ -349,7 +362,7 @@ public class Rocket : MonoBehaviour
     }
 
 
-    public void UpgradeRocket(int index)
+    public virtual void UpgradeRocket(int index)
     {
         switch (index)
         {

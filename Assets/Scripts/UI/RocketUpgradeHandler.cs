@@ -4,9 +4,9 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.EventSystems;
 
-
-public class RocketUpgradeHandler : MonoBehaviour
+public class RocketUpgradeHandler : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] TMP_Dropdown dropdown;
     [SerializeField] RocketControl houston;
@@ -18,7 +18,9 @@ public class RocketUpgradeHandler : MonoBehaviour
      
     public Rocket subject;
 
-   
+    //0 is select, 1 is purchase. I should have just done inheritance instead of copying and pasting a bunch of code. oh well.
+    [SerializeField] AudioClip[] sfx;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -79,6 +81,9 @@ public class RocketUpgradeHandler : MonoBehaviour
             subjectPanel.UpgradePanel(pickedEntryIndex);
             houston.savedDistance -= subject.upgrades[pickedEntryIndex].cost;
             subjectPanel.ResetTextUponBuy();
+
+            AudioClip purchase = sfx[1];
+            SoundFXManager.instance.PlaySoundEffectClip(purchase, Vector2.zero, 1f);
         }
 
         dropdown.SetValueWithoutNotify(-1);
@@ -101,6 +106,18 @@ public class RocketUpgradeHandler : MonoBehaviour
             remText[i].GetComponent<TextMeshProUGUI>().text = string.Concat(" x" + remainingUpgr.ToString());
 
 
+        }
+
+    }
+
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        //left click
+        if (eventData.pointerId == -1)
+        {
+            AudioClip select = sfx[0];
+            SoundFXManager.instance.PlaySoundEffectClip(select, Vector2.zero, 1f);
         }
 
     }

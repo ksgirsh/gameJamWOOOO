@@ -17,6 +17,11 @@ public class Preview : MonoBehaviour
     SpriteRenderer rend;
 
     float maxRange;
+
+    [Header("Sound")]
+    //0 is placing
+    [SerializeField] AudioClip[] sfx;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -41,8 +46,10 @@ public class Preview : MonoBehaviour
                 GameObject parent = GameObject.FindGameObjectWithTag("Planet");
                 real.GetComponent<Satellite>().orbitRadius = (Mathf.Abs(transform.position.magnitude) - parent.transform.localScale.x);
 
+                //placed hook sfx
+                AudioClip place = sfx[0];
+                SoundFXManager.instance.PlaySoundEffectClip(place, Vector2.zero, 1f);
 
-                
             }
 
             houston.savedDistance -= cost;

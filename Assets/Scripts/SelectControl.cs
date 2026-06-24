@@ -3,8 +3,10 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class SelectControl : MonoBehaviour
+
+public class SelectControl : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] Camera mainCamera;
 
@@ -26,6 +28,12 @@ public class SelectControl : MonoBehaviour
     [SerializeField] RocketShop rockShop;
     protected HookUpgradeHandler hookUpgrader;
 
+    [SerializeField] GameObject dragSelection;
+
+
+    [Header("Sound")]
+    //0 is locking
+    [SerializeField] AudioClip[] sfx;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -60,6 +68,9 @@ public class SelectControl : MonoBehaviour
         if (currentSelObj != null && Input.GetButtonDown("Fire1"))
         {
             LockSelect();
+        } else if (Input.GetButtonDown("Fire1"))
+        {
+
         }
 
         if (Input.GetButtonDown("Fire2") && lockedHooks.Count > 0)
@@ -154,6 +165,10 @@ public class SelectControl : MonoBehaviour
             UISingleton.instance.skyHealth.GetComponent<HookHealthDisplay>().satHealth = lockedHooks[mostRecent].GetComponent<Health>();
 
             selectedHook = null;
+
+            //placed hook sfx
+            AudioClip lockk = sfx[0];
+            SoundFXManager.instance.PlaySoundEffectClip(lockk, Vector2.zero, 1f);
         }
         
     }
@@ -199,5 +214,15 @@ public class SelectControl : MonoBehaviour
         }
     }
 
-    
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        //left click
+        if (eventData.pointerId == -1)
+        {
+            
+        }
+
+    }
+
+
 }

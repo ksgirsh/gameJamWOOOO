@@ -3,13 +3,19 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
-public class ShopValues : MonoBehaviour
+public class ShopValues : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] TMP_Dropdown dropdown;
 
-    [System.Serializable]
 
+    //0 is select, 1 is purchase
+    [SerializeField] AudioClip[] sfx;
+
+
+
+    [System.Serializable]
     class Purchasable
     {
         public GameObject obj;
@@ -66,6 +72,10 @@ public class ShopValues : MonoBehaviour
         {
             buy.selectedBuy = shoppables[pickedEntryIndex].obj;
             buy.TriggerBuy((float)(shoppables[pickedEntryIndex].price));
+
+            AudioClip purchase = sfx[1];
+            SoundFXManager.instance.PlaySoundEffectClip(purchase, Vector2.zero, 1f);
+
         } else
         {
             Debug.Log("not enough money");
@@ -109,5 +119,16 @@ public class ShopValues : MonoBehaviour
             AddNewLocation(item.name, item.price);
 
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        //left click
+        if (eventData.pointerId == -1)
+        {
+            AudioClip select = sfx[0];
+            SoundFXManager.instance.PlaySoundEffectClip(select, Vector2.zero, 1f);
+        }
+
     }
 }
