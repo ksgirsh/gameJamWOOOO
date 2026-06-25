@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Preview : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class Preview : MonoBehaviour
             float range = realVersion.GetComponent<DefensiveSatellite>().fireRange;
 
             rangeCircle.localScale *= range;
-            Debug.Log(rangeCircle.gameObject.name);
+
         }
 
     }
@@ -56,10 +57,11 @@ public class Preview : MonoBehaviour
                 //reminder to remove the "parent addendum" later
                 GameObject parent = GameObject.FindGameObjectWithTag("Planet");
                 real.GetComponent<Satellite>().orbitRadius = (Mathf.Abs(transform.position.magnitude) - parent.transform.localScale.x);
-
+                real.GetComponent<Satellite>().orbitAngle = Mathf.Atan2(transform.position.y, transform.position.x);
                 //placed hook sfx
                 AudioClip place = sfx[0];
                 SoundFXManager.instance.PlaySoundEffectClip(place, Vector2.zero, 1f);
+
 
             }
 

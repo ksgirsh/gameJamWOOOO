@@ -28,7 +28,7 @@ public class Alien : MonoBehaviour
         control = manager.GetComponent<SelectControl>();
         alienControl = manager.GetComponent<WaveController>();
 
-        transform.position = CalcSpawnPos();
+        transform.position = RandomPointInRing(Vector2.zero);
         
         Vector2 dir = -((transform.position).normalized);
         rb.AddForce(dir * moveSpeed, ForceMode2D.Impulse);
@@ -38,43 +38,38 @@ public class Alien : MonoBehaviour
         transform.rotation = quatRotate;
     }
 
-    Vector2 CalcSpawnPos()
+    void OnTriggerEnter2D(Collider2D coll)
     {
-        Vector2 camDim = new Vector2(mc.pixelWidth, mc.pixelHeight);
-
-
-        float aspect = (camDim.x / camDim.y);
-        float wHeight = mc.orthographicSize * 2;
-        float wWidth = wHeight * aspect;
-
-        //Debug.Log("WIDTH: " + wWidth + "  HEIGHT: " + wHeight);
-
-        Vector2 wDim = new Vector2(wWidth, wHeight);
-
-        Vector2 point = mc.transform.position + (Vector3)(wDim / 2);
-        // Debug.Log(point);
-
-        Vector2 spawnPos = new Vector2((point.x + Random.Range(2, 8)), Random.Range((point.y - wHeight) * shrinkF, point.y * shrinkF));
-
-        float maxRad = SphereOfInfluence();
-
-        if (spawnPos.y < (maxRad + 2f) && spawnPos.y > -(maxRad + 2f))
+        if ((coll.gameObject.tag == "Satellite") || (coll.gameObject.tag == "Planet"))
         {
-            int coinFlip = Random.Range(0, 2);
-            if (coinFlip == 0)
+
+            Health satHealth = coll.gameObject.GetComponent<Health>();
+            if (satHealth != null)
             {
-                spawnPos.y = (maxRad + 2f);
+
+                StartCoroutine(satHealth.TakeDamage(attackDamage));
+
+
+                if (coll.gameObject.tag == "Planet")
+                {
+                    Destroy(gameObject, 0.42f);
+                }
             }
-            else
-            {
-                spawnPos.y = -(maxRad + 2f);
-            }
+
         }
 
-        return spawnPos;
-        //x will be point.x + some margin
-        //y will be random between point.y * shrinkF and (point.y - wHeight) * shrinkF
     }
+
+    void OnMouseEnter()
+    {
+        control.SelectTrigger(gameObject);
+    }
+
+    void OnMouseExit()
+    {
+        control.EraseTrigger();
+    }
+
 
     float SphereOfInfluence()
     {
@@ -91,37 +86,21 @@ public class Alien : MonoBehaviour
         }
 
 
-        return cachedRad;
+        return (cachedRad + 5f);
     }
 
-    void OnTriggerEnter2D(Collider2D coll)
+
+    //credit to Emolk on the unity forums for saving me mental energy and being lovely
+    public Vector2 RandomPointInRing(Vector2 origin)
     {
-        if ((coll.gameObject.tag == "Satellite") || (coll.gameObject.tag == "Planet"))
-        {
 
-            Health satHealth = coll.gameObject.GetComponent<Health>();
-            if (satHealth != null)
-            {
-                StartCoroutine(satHealth.TakeDamage(attackDamage));
-            }
+        var randomDirection = (Random.insideUnitCircle).normalized;
 
-            if (coll.gameObject.tag == "Planet")
-            {
-                Destroy(gameObject, 0.42f);
-            }
-        }
+        var randomDistance = Random.Range(SphereOfInfluence() + 10f, (SphereOfInfluence() + 25f));
 
+
+        Vector2 point = origin + (randomDirection * randomDistance);
+        return point;
     }
-
-    void OnMouseEnter()
-    {
-        control.SelectTrigger(gameObject);
-    }
-
-    void OnMouseExit()
-    {
-        control.EraseTrigger();
-    }
-
-
 }
+

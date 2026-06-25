@@ -49,6 +49,9 @@ public class Planet : MonoBehaviour
             {
 
                 OnMouseExit();
+            } else if (currentRocketObj == null)
+            {
+                OnMouseEnter();
             }
         }
         

@@ -21,6 +21,7 @@ public class ShopValues : MonoBehaviour, IPointerClickHandler
         public GameObject obj;
         public int price;
         public string name;
+        public int metalPrice;
     }
 
     [SerializeField] List<Purchasable> shoppables;
@@ -93,9 +94,9 @@ public class ShopValues : MonoBehaviour, IPointerClickHandler
     }
 
     [ContextMenu("Add New Location")]
-    void AddNewLocation(string name, int price)
+    void AddNewLocation(string name, int price, string suffix, string color)
     {
-        string display = string.Concat(name, " - ", (price.ToString()));
+        string display = string.Concat(name, " - " + color, (price.ToString()) + " " + suffix + "</color>");
         dropdown.options.Add(new TMP_Dropdown.OptionData(display, null, Color.white));
 
         dropdown.RefreshShownValue();
@@ -115,8 +116,14 @@ public class ShopValues : MonoBehaviour, IPointerClickHandler
     {
         foreach (Purchasable item in shoppables)
         {
-            
-            AddNewLocation(item.name, item.price);
+            if (item.price == 0 && item.metalPrice > 0)
+            {
+                //metal color
+                AddNewLocation(item.name, item.metalPrice, "t", "<color=#B98B8B>");
+                return;
+            }
+            //meters color
+            AddNewLocation(item.name, item.price, "km", "<color=#FFF000>");
 
         }
     }

@@ -108,11 +108,12 @@ public class Health : MonoBehaviour
             isInvincible = true;
             StartCoroutine(fade.PulseColorSpr(0.3f, gameObject, Color.red));
             currentHealth -= damage;
+            yield return new WaitForSeconds(invincibleTime);
+
+            isInvincible = false;
         }
 
-        yield return new WaitForSeconds(invincibleTime);
 
-        isInvincible = false;
 
     }
 }

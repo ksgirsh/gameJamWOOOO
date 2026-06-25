@@ -13,7 +13,8 @@ public class Satellite : MonoBehaviour
     public float orbitRadius;
     public float orbitVelocity;
     public float rotateVelocity;
-    private float orbitAngle;
+    //20 trillion public variables. its not even a word anymore, jsut a sound
+    public float orbitAngle;
     public Transform hookPoint;
 
     [field:SerializeField] public Transform orbitRing { get; private set; }
@@ -46,19 +47,26 @@ public class Satellite : MonoBehaviour
     [field:SerializeField] public string identifier { get; private set; }
     public bool rocketTarget = true;
 
-
+    public Vector2 initialPos = Vector2.zero;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
+
         if (parent == null)
         {
             parent = GameObject.FindGameObjectWithTag("Planet");
         }
         rb = gameObject.GetComponent<Rigidbody2D>();
         orbitRadius += parent.transform.localScale.x;
-        Vector2 planetPos = parent.transform.position;
-        transform.position = new Vector2(planetPos.x + orbitRadius, planetPos.y);
+
+        if (transform.position == Vector3.zero)
+        {
+            Vector2 planetPos = parent.transform.position;
+            transform.position = new Vector2(planetPos.x + orbitRadius, planetPos.y);
+
+        }
+
 
         if (orbitRing != null)
         {

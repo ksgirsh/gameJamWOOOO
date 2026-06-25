@@ -21,10 +21,10 @@ public class LauncherSatellite : Satellite
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
-        SelectNearestSatellite();
-        base.Start();
         
+        base.Start();
 
+        SelectNearestSatellite();
         hookRad = targetHook.orbitRadius;
         hookAngSpeed = targetHook.orbitVelocity / hookRad;
         thisAngSpeed = orbitVelocity / orbitRadius;
@@ -51,6 +51,11 @@ public class LauncherSatellite : Satellite
         if (targetHook == null)
         {
             SelectNearestSatellite();
+
+            hookRad = targetHook.orbitRadius;
+            hookAngSpeed = targetHook.orbitVelocity / hookRad;
+            thisAngSpeed = orbitVelocity / orbitRadius;
+            trueDistance = Mathf.Abs(hookRad - orbitRadius);
         }
 
     }
@@ -72,13 +77,14 @@ public class LauncherSatellite : Satellite
         {
             if (sat.rocketTarget == true)
             {
-                float dist = (sat.transform.position - transform.position).magnitude;
-                Debug.Log(dist);
-                if (cachedDist > dist)
+                float distRad = Mathf.Abs(orbitRadius - sat.orbitRadius);
+
+                if (cachedDist > distRad)
                 {
-                    cachedDist = dist;
+                    cachedDist = distRad;
                     targetHook = sat;
                 }
+                Debug.Log(orbitRadius + " // " + sat.orbitRadius);
             }
         }
 

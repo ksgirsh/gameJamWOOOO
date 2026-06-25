@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 4613143427466735842}
   - component: {fileID: -4906376319275356092}
   m_Layer: 0
-  m_Name: Defensive Satellite
+  m_Name: BadDefense
   m_TagString: Satellite
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a329997c952af2043ae84a5bbf970cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  health: 200
+  health: 40
   currentHealth: 0
   decay: 1
   invincibleTime: 0.8
@@ -340,7 +340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   parent: {fileID: 0}
   orbitRadius: 0
-  orbitVelocity: 2
+  orbitVelocity: 5
   rotateVelocity: 3
   hookPoint: {fileID: 857047712124929351}
   <orbitRing>k__BackingField: {fileID: 5302037487132973184}
@@ -348,22 +348,10 @@ MonoBehaviour:
   maxRockets: 0
   auto: 1
   upgrades:
-  - cost: 75
-    maxUpgrades: 3
-    currentUpgrades: 0
-  - cost: 100
-    maxUpgrades: 3
-    currentUpgrades: 0
   - cost: 50
-    maxUpgrades: 3
+    maxUpgrades: 2
     currentUpgrades: 0
   upgradeDropdownDisplay:
-  - m_Text: Increase Fire Rate
-    m_Image: {fileID: 0}
-    m_Color: {r: 0, g: 0, b: 0, a: 0}
-  - m_Text: Increase Range
-    m_Image: {fileID: 0}
-    m_Color: {r: 0, g: 0, b: 0, a: 0}
   - m_Text: Repair Satellite
     m_Image: {fileID: 0}
     m_Color: {r: 0, g: 0, b: 0, a: 0}
