@@ -46,7 +46,7 @@ public class Health : MonoBehaviour
             alienControl = player.GetComponent<WaveController>();
 
         }
-
+        isInvincible = false;
 
 
     }
@@ -103,17 +103,21 @@ public class Health : MonoBehaviour
     public IEnumerator TakeDamage(float damage)
     {
         //play hurt sound effect here
-        if (isInvincible == false)
-        {
-            isInvincible = true;
-            StartCoroutine(fade.PulseColorSpr(0.3f, gameObject, Color.red));
-            currentHealth -= damage;
-            yield return new WaitForSeconds(invincibleTime);
+
+            
+
+            if (isInvincible == false)
+            {
+                isInvincible = true;
+                StartCoroutine(fade.PulseColorSpr(0.4f, gameObject, Color.red));
+                currentHealth -= damage;
+                yield return new WaitForSeconds(invincibleTime);
+            }
+
 
             isInvincible = false;
-        }
-
-
+       
+        
 
     }
 }

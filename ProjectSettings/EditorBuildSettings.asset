@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/ApogeeTutorial.unity
+    guid: 616ab9ebe05534c478f0101b08185c72
+  - enabled: 1
     path: Assets/Scenes/OrbitSetupK.unity
     guid: fe7b397d7abce374eaf104b0d13d9293
   m_configObjects: {}

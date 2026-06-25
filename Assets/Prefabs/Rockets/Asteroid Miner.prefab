@@ -63,7 +63,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -294,6 +294,7 @@ MonoBehaviour:
   health: 10
   currentHealth: 0
   decay: 0
+  invincibleTime: 0.8
 --- !u!114 &-3015140213710773616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,13 +309,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   targetHook: {fileID: 0}
   normalVector: {x: 0, y: 0}
+  targetPosition: {x: 0, y: 0}
+  rocketSpeed: 1
   attachOffset: 0.105
   hookProperties: {fileID: 0}
   trueDistance: 0
   distanceTravelled: 0
   debugPrefab: {fileID: 0}
   houston: {fileID: 0}
-  rocketPrice: 2
+  rocketPrice: 75
   upgrades:
   - cost: 50
     maxUpgrades: 3
@@ -344,6 +347,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: af1856c6bed24b14db9679251f10f5bf, type: 3}
   - {fileID: 8300000, guid: e110689d24335fa4fb0865840ac4f31d, type: 3}
   - {fileID: 8300000, guid: b17dfe4289e38754c87db339a906023d, type: 3}
+  waitOnInit: 1
   seekCheckRadius: 4
   seekLayers:
     serializedVersion: 2
