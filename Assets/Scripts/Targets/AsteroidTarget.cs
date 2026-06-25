@@ -11,6 +11,7 @@ public class AsteroidTarget : TargetAttribute
     float maxRange;
     Health health;
     RocketControl houston;
+    SelectControl control;
     int metalAmt;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,6 +33,7 @@ public class AsteroidTarget : TargetAttribute
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         houston = player.GetComponent<RocketControl>();
+        control = player.GetComponent<SelectControl>();
 
         metalAmt = 100 + (Random.Range(-50, 200));
 
@@ -157,6 +159,14 @@ public class AsteroidTarget : TargetAttribute
         }
     }
 
+    void OnMouseEnter()
+    {
+        control.SelectTrigger(gameObject);
+    }
 
+    void OnMouseExit()
+    {
+        control.EraseTrigger();
+    }
 
 }

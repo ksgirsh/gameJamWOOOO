@@ -90,6 +90,8 @@ public class SelectControl : MonoBehaviour, IPointerClickHandler
     public void SelectTrigger(GameObject hook)
     {
         
+        //not really for hooks, also for aliens and probably asteroids
+
         //check to make sure you cant select locked hooks
         foreach (GameObject lHook in lockedHooks)
         {
@@ -105,7 +107,11 @@ public class SelectControl : MonoBehaviour, IPointerClickHandler
         currentSelObj = GameObject.Instantiate(selectEffect, hook.transform.position, transform.rotation, hookTrans);
         currentSelObj.transform.localPosition = Vector3.zero;
 
-        selectedHook = hook;
+        if (hook.gameObject.tag == "Satellite")
+        {
+            selectedHook = hook;
+        }
+
 
         hookCam.GetComponent<AttachToObject>().target = hookTrans;
         panel.SetActive(true);

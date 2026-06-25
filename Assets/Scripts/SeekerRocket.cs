@@ -141,6 +141,12 @@ public class SeekerRocket : Rocket
             }
         }
 
+        if (coll.gameObject.tag == "Alien")
+        {
+            Health alieHealth = coll.gameObject.GetComponent<Health>();
+            StartCoroutine(alieHealth.TakeDamage(rocketDamage));
+        }
+
     }
 
 }

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4031666777447590553}
   - component: {fileID: 1504503217581707746}
   - component: {fileID: 5079366553949859180}
+  - component: {fileID: -1688326474668925591}
   m_Layer: 0
   m_Name: AimHook
   m_TagString: Satellite
@@ -296,6 +297,7 @@ MonoBehaviour:
     m_Image: {fileID: 0}
     m_Color: {r: 0, g: 0, b: 0, a: 0}
   <identifier>k__BackingField: Aim Hook
+  rocketTarget: 1
 --- !u!58 &4031666777447590553
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -360,6 +362,19 @@ MonoBehaviour:
   health: 200
   currentHealth: 0
   decay: 1
+  invincibleTime: 0.8
+--- !u!114 &-1688326474668925591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2572996488282332699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66788762665f2874597e04af98aa66bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FadeIn
 --- !u!1 &4725581596618287176
 GameObject:
   m_ObjectHideFlags: 0

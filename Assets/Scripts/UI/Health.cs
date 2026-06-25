@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Health : MonoBehaviour
 {
@@ -6,13 +7,22 @@ public class Health : MonoBehaviour
     public float currentHealth;
     public bool decay;
 
-    //0 is satellite, 1 is rocket, 2 is target
-    bool[] isOn = new bool[3];
+    //0 is satellite, 1 is rocket, 2 is target, 3 is alien, 4 is planet
+    bool[] isOn = new bool[5];
     SelectControl select;
+    FadeIn fade;
+    WaveController alienControl;
+
+    [SerializeField] float invincibleTime = 0.8f;
+
+    bool isInvincible;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        select = player.GetComponent<SelectControl>();
+        fade = gameObject.GetComponent<FadeIn>();
 
         float randomChange = Random.Range(-(health * 0.2f), (health * 0.4f));
         health += randomChange;
@@ -26,10 +36,19 @@ public class Health : MonoBehaviour
         if (gameObject.GetComponent<TargetAttribute>() != null)
         {
             isOn[2] = true;
+
+
         }
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        select = player.GetComponent<SelectControl>();
+        if (gameObject.GetComponent<Alien>() != null)
+        {
+            isOn[3] = true;
+            alienControl = player.GetComponent<WaveController>();
+
+        }
+
+
+
     }
 
     // Update is called once per frame
@@ -65,6 +84,11 @@ public class Health : MonoBehaviour
                 targetManager.currentTargets--;
             }
 
+            if (isOn[3])
+            {
+                alienControl.currentlyAliveAliens.Remove(gameObject);
+            }
+
             Destroy(gameObject);
         }
     }
@@ -73,5 +97,22 @@ public class Health : MonoBehaviour
     {
         return (currentHealth / health);
         
+    }
+
+
+    public IEnumerator TakeDamage(float damage)
+    {
+        //play hurt sound effect here
+        if (isInvincible == false)
+        {
+            isInvincible = true;
+            StartCoroutine(fade.PulseColorSpr(0.3f, gameObject, Color.red));
+            currentHealth -= damage;
+        }
+
+        yield return new WaitForSeconds(invincibleTime);
+
+        isInvincible = false;
+
     }
 }

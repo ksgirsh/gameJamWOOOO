@@ -8,11 +8,12 @@ TagManager:
   - Target
   - Planet
   - RocketPanel
+  - Alien
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
   - Surface

@@ -19,7 +19,7 @@ public class Satellite : MonoBehaviour
     [field:SerializeField] public Transform orbitRing { get; private set; }
 
 
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
 
     protected SelectControl control;
 
@@ -44,6 +44,8 @@ public class Satellite : MonoBehaviour
 
     [Header("Identity")]
     [field:SerializeField] public string identifier { get; private set; }
+    public bool rocketTarget = true;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -77,7 +79,7 @@ public class Satellite : MonoBehaviour
         StartCoroutine(Orbit());
     }
 
-    IEnumerator Orbit()
+    protected virtual IEnumerator Orbit()
     {
 
         orbitAngle += Time.deltaTime * (orbitVelocity / orbitRadius);

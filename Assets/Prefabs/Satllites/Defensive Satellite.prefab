@@ -12,14 +12,14 @@ GameObject:
   - component: {fileID: 1350315631227599959}
   - component: {fileID: 9115017972326187106}
   - component: {fileID: -9031614480448342562}
-  - component: {fileID: -7868947033092512223}
   - component: {fileID: -6376835986569477909}
   - component: {fileID: 6638953662805435440}
   - component: {fileID: 3940286787914687994}
   - component: {fileID: 4499145016787624870}
-  - component: {fileID: -6014246004937887244}
+  - component: {fileID: 4613143427466735842}
+  - component: {fileID: -4906376319275356092}
   m_Layer: 0
-  m_Name: Satellite
+  m_Name: Defensive Satellite
   m_TagString: Satellite
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,7 @@ SpriteRenderer:
   m_SortingOrder: -1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8360708659529787156, guid: a081703752049d84ca7d6458d820f47a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5456123, g: 0.62839615, b: 0.6320754, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -248,49 +248,6 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &-7868947033092512223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 778420430720143991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 644f16cf11423d7419475fc61fe3857f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Satellite
-  parent: {fileID: 0}
-  orbitRadius: 2
-  orbitVelocity: 3
-  rotateVelocity: 4
-  hookPoint: {fileID: 857047712124929351}
-  <orbitRing>k__BackingField: {fileID: 5302037487132973184}
-  loadedRockets: []
-  maxRockets: 1
-  auto: 1
-  upgrades:
-  - cost: 200
-    maxUpgrades: 3
-    currentUpgrades: 0
-  - cost: 100
-    maxUpgrades: 3
-    currentUpgrades: 0
-  - cost: 50
-    maxUpgrades: 3
-    currentUpgrades: 0
-  upgradeDropdownDisplay:
-  - m_Text: Rotate Faster
-    m_Image: {fileID: 0}
-    m_Color: {r: 0, g: 0, b: 0, a: 0}
-  - m_Text: Move Faster
-    m_Image: {fileID: 0}
-    m_Color: {r: 0, g: 0, b: 0, a: 0}
-  - m_Text: Repair Hook
-    m_Image: {fileID: 0}
-    m_Color: {r: 0, g: 0, b: 0, a: 0}
-  <identifier>k__BackingField: Basic Hook
-  rocketTarget: 1
 --- !u!114 &-6376835986569477909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be8fc9dc1a0edc40b332042de33f653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  preview: {fileID: 5394464266665591977, guid: b3125812a4af2a146bac7239e777180e, type: 3}
+  preview: {fileID: 5394464266665591977, guid: 524c4ae9378288e42b59a2b5b4a4a909, type: 3}
 --- !u!58 &6638953662805435440
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -369,7 +326,58 @@ MonoBehaviour:
   currentHealth: 0
   decay: 1
   invincibleTime: 0.8
---- !u!114 &-6014246004937887244
+--- !u!114 &4613143427466735842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778420430720143991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82288f6379b65394aac8a32be916fd04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  parent: {fileID: 0}
+  orbitRadius: 0
+  orbitVelocity: 5
+  rotateVelocity: 3
+  hookPoint: {fileID: 857047712124929351}
+  <orbitRing>k__BackingField: {fileID: 5302037487132973184}
+  loadedRockets: []
+  maxRockets: 0
+  auto: 1
+  upgrades:
+  - cost: 75
+    maxUpgrades: 3
+    currentUpgrades: 0
+  - cost: 100
+    maxUpgrades: 3
+    currentUpgrades: 0
+  - cost: 50
+    maxUpgrades: 3
+    currentUpgrades: 0
+  upgradeDropdownDisplay:
+  - m_Text: Increase Fire Rate
+    m_Image: {fileID: 0}
+    m_Color: {r: 0, g: 0, b: 0, a: 0}
+  - m_Text: Increase Range
+    m_Image: {fileID: 0}
+    m_Color: {r: 0, g: 0, b: 0, a: 0}
+  - m_Text: Repair Satellite
+    m_Image: {fileID: 0}
+    m_Color: {r: 0, g: 0, b: 0, a: 0}
+  <identifier>k__BackingField: Cannon Satellite
+  rocketTarget: 1
+  projectile: {fileID: 1386914676800583783, guid: 4e81d60a59dd62944b2ec45972a6e291, type: 3}
+  fireForce: 8
+  <fireRange>k__BackingField: 6
+  alienLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  attackDamage: 25
+  attackRate: 1
+--- !u!114 &-4906376319275356092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

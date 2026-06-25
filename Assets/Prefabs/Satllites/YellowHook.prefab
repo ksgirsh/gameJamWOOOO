@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -6376835986569477909}
   - component: {fileID: 7106255619437378684}
   - component: {fileID: -4400332414846050508}
+  - component: {fileID: -7221916559610332606}
   m_Layer: 0
   m_Name: YellowHook
   m_TagString: Satellite
@@ -315,6 +316,7 @@ MonoBehaviour:
     m_Image: {fileID: 0}
     m_Color: {r: 0, g: 0, b: 0, a: 0}
   <identifier>k__BackingField: Yellow Hook
+  rocketTarget: 1
 --- !u!114 &-6376835986569477909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,6 +358,19 @@ MonoBehaviour:
   health: 80
   currentHealth: 0
   decay: 1
+  invincibleTime: 0.8
+--- !u!114 &-7221916559610332606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778420430720143991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66788762665f2874597e04af98aa66bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FadeIn
 --- !u!1 &1247276860774672648
 GameObject:
   m_ObjectHideFlags: 0

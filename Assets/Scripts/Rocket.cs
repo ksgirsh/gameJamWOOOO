@@ -8,10 +8,10 @@ public class Rocket : MonoBehaviour
 {
     public GameObject targetHook;
     public Vector2 normalVector;
-    private Vector2 targetPosition;
+    [HideInInspector] public Vector2 targetPosition;
 
 
-    protected float rocketSpeed = 1;
+    public float rocketSpeed = 1;
     [SerializeField] float attachOffset = 0.105f;
     public Satellite hookProperties;
     private float hookAngSpeed;
@@ -56,6 +56,8 @@ public class Rocket : MonoBehaviour
     //0 is launch, 1 is catch, 2 is throw
     [SerializeField] AudioClip[] sfx;
 
+    public bool waitOnInit = true;
+
     void Start()
     {
 
@@ -88,15 +90,15 @@ public class Rocket : MonoBehaviour
         hookAngSpeed = hookProperties.orbitVelocity / hookRad;
         hookRotationSpeed = hookProperties.rotateVelocity;
 
-        targetPosition = (normalVector * hookRad);
-        trueDistance = (hookRad - ((transform.position).magnitude));
+
+
 
         tr = gameObject.GetComponent<TrailRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
 
 
-        StartCoroutine(LaunchSequence());
+        StartCoroutine(LaunchSequence(waitOnInit));
 
         //Destroy(gameObject, 10);
 
@@ -158,6 +160,10 @@ public class Rocket : MonoBehaviour
 
     float IdealAngle()
     {
+        if (trueDistance == 0)
+        {
+            trueDistance = Mathf.Abs(hookRad - ((transform.position).magnitude));
+        }
         return ((trueDistance * hookAngSpeed) / (rocketSpeed));
 
         
@@ -166,6 +172,10 @@ public class Rocket : MonoBehaviour
     Vector2 IdealPosition()
     {
         //in radians
+        if (targetPosition == Vector2.zero)
+        {
+            targetPosition = (normalVector * hookRad);
+        }
         float targetAngle = Mathf.Atan2(targetPosition.y, targetPosition.x);
 
         //turn backwards
@@ -218,11 +228,19 @@ public class Rocket : MonoBehaviour
         
     }
 
-    IEnumerator LaunchSequence()
+    IEnumerator LaunchSequence(bool waitOnInit)
     {
+        if (waitOnInit)
+        {
+            yield return new WaitForSeconds(TimeToIdealPosition());
+        }
 
-        yield return new WaitForSeconds(TimeToIdealPosition());
         CheckTargetHealth();
+        
+        if (trueDistance == 0)
+        {
+            trueDistance = Mathf.Abs(hookRad - ((transform.position).magnitude));
+        }
 
         float duration = (trueDistance / rocketSpeed);
         Vector2 initPos = transform.position;
@@ -231,6 +249,10 @@ public class Rocket : MonoBehaviour
         AudioClip launch = sfx[0];
         SoundFXManager.instance.PlaySoundEffectClip(launch, Vector2.zero, 1f);
 
+        if (targetPosition == Vector2.zero)
+        {
+            targetPosition = (normalVector * hookRad);
+        }
 
         for (float i = 0; i < duration; i += Time.deltaTime)
         {

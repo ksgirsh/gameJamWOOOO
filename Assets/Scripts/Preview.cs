@@ -30,6 +30,17 @@ public class Preview : MonoBehaviour
         houston = player.GetComponent<RocketControl>();
         rend = gameObject.GetComponent<SpriteRenderer>();
         maxRange = GetSphereOfInfluence();
+
+        if (realVersion.GetComponent<DefensiveSatellite>() != null)
+        {
+            Transform rangeCircle = transform.GetChild(0);
+
+            float range = realVersion.GetComponent<DefensiveSatellite>().fireRange;
+
+            rangeCircle.localScale *= range;
+            Debug.Log(rangeCircle.gameObject.name);
+        }
+
     }
 
     // Update is called once per frame
