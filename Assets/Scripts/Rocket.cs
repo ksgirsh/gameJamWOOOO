@@ -42,6 +42,9 @@ public class Rocket : MonoBehaviour
         public int maxUpgrades;
         public int currentUpgrades;
         public int magnitude;
+
+        public string tooltipHeader;
+        public string tooltipContent;
     }
     public List<Upgrade> upgrades;
 
@@ -54,7 +57,7 @@ public class Rocket : MonoBehaviour
 
     [Header("Sound")]
     //0 is launch, 1 is catch, 2 is throw
-    [SerializeField] AudioClip[] sfx;
+    [field:SerializeField] protected AudioClip[] sfx;
 
     public bool waitOnInit = true;
 

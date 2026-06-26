@@ -97,7 +97,7 @@ public class HookUpgradeHandler : MonoBehaviour, IPointerClickHandler
             }
 
 
-            string addendum = string.Concat(" - ", (prices[i]).ToString());
+            string addendum = string.Concat(" - ", "<color=yellow>", (prices[i]).ToString(), " km </color>");
             //if there is already an addendum, remove it
             string predendum = ((options[i].text).Replace(addendum, ""));
 
@@ -144,6 +144,7 @@ public class HookUpgradeHandler : MonoBehaviour, IPointerClickHandler
             }
             else
             {
+                SoundFXManager.instance.PlaySoundEffectClip(sfx[2], transform.position, 1f);
                 Debug.Log("Not Enough Money, Come back when you're a little-- mmmmmm RICHER!");
             }
 
@@ -244,6 +245,21 @@ public class HookUpgradeHandler : MonoBehaviour, IPointerClickHandler
         {
             AudioClip select = sfx[0];
             SoundFXManager.instance.PlaySoundEffectClip(select, Vector2.zero, 1f);
+
+            //get 1 satellite from array, use that ones data. They should all be of the same type, so it doesnt matter which one.
+            if (satellitesToUpgrade.Count > 0)
+            {
+                Satellite sat = satellitesToUpgrade[0];
+
+                TooltipTrigger[] info = dropdown.gameObject.GetComponentsInChildren<TooltipTrigger>();
+                for (int i = 0; i < info.Length; i++)
+                {
+                    info[i].header = sat.upgrades[i].tooltipHeader;
+                    info[i].content = sat.upgrades[i].tooltipContent;
+                }
+            }
+
+
         }
 
     }

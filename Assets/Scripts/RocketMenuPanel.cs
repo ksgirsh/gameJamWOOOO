@@ -18,6 +18,9 @@ public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
         public int maxUpgrades;
         public int currentUpgrades;
         public int magnitude;
+
+        public string tooltipHeader;
+        public string tooltipContent;
     }
     public List<Upgrade> upgrades;
 
@@ -41,7 +44,9 @@ public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
 
     private RocketUpgradeHandler rockUpgr;
 
-    //0 is select, 1 is unlock
+
+
+    //0 is select, 1 is unlock, 2 is deny
     [SerializeField] AudioClip[] sfx;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -125,6 +130,9 @@ public class RocketMenuPanel : MonoBehaviour, IPointerClickHandler
             AudioClip select = sfx[0];
             SoundFXManager.instance.PlaySoundEffectClip(select, Vector2.zero, 1f);
 
+        } else if (unlocked == false)
+        {
+            SoundFXManager.instance.PlaySoundEffectClip(sfx[2], transform.position, 1f);
         }
 
 

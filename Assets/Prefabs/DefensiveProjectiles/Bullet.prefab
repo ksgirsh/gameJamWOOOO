@@ -107,6 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   attackDamage: 25
+  sfx:
+  - {fileID: 8300000, guid: 884c902300b708c41b3b1e5b3b5e9c76, type: 3}
 --- !u!50 &-6535892780627133713
 Rigidbody2D:
   serializedVersion: 5

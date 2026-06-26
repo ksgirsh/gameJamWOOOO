@@ -9,6 +9,8 @@ public class AsteroidMiner : SeekerRocket
     int mineAmt = 1;
     bool landed = false;
 
+    bool lpIsPlaying;
+
     protected override void Update()
     {
         base.Update();
@@ -21,6 +23,8 @@ public class AsteroidMiner : SeekerRocket
             {
                 StartCoroutine(Mine(mineTime, mineAmt));
             }
+
+            StartCoroutine(LoopSFX(3));
         }
 
     }
@@ -47,6 +51,10 @@ public class AsteroidMiner : SeekerRocket
             landed = true;
             tr.emitting = false;
             asteroid.gameObject.GetComponent<AsteroidTarget>().beingMined = true;
+
+
+
+
         }
 
     }
@@ -56,7 +64,7 @@ public class AsteroidMiner : SeekerRocket
         mining = true;
         yield return new WaitForSeconds(initDuration);
         houston.savedMetal += mineAmt;
-        
+        SoundFXManager.instance.PlaySoundEffectClip(sfx[4], transform.position, 1f);
         mining = false;
     }
 
@@ -111,6 +119,22 @@ public class AsteroidMiner : SeekerRocket
 
     }
 
+    void LoopAudio()
+    {
+        AudioSource audio = gameObject.GetComponent<AudioSource>();
+        audio.loop = true;
+    }
 
+    protected virtual IEnumerator LoopSFX(int i)
+    {
+        if (!lpIsPlaying)
+        {
+            lpIsPlaying = true;
+            SoundFXManager.instance.PlaySoundEffectClip(sfx[i], transform.position, 1f);
+            yield return new WaitForSeconds(sfx[i].length);
+            lpIsPlaying = false;
+        }
+
+    }
 
 }

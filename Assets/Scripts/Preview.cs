@@ -8,6 +8,7 @@ public class Preview : MonoBehaviour
     [SerializeField] string identifier;
 
     [HideInInspector] public float cost;
+    [HideInInspector] public int metalCost;
     private RocketControl houston;
 
 
@@ -20,16 +21,21 @@ public class Preview : MonoBehaviour
     float maxRange;
 
     [Header("Sound")]
-    //0 is placing
+    //0 is placing, 1 is deny
     [SerializeField] AudioClip[] sfx;
-
+    BuyControl buy;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
         mainCam = (GameObject.FindGameObjectWithTag("MainCamera")).GetComponent<Camera>();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         houston = player.GetComponent<RocketControl>();
         rend = gameObject.GetComponent<SpriteRenderer>();
+
+
+        buy = player.GetComponent<BuyControl>();
+        buy.buying = true;
         maxRange = GetSphereOfInfluence();
 
         if (realVersion.GetComponent<DefensiveSatellite>() != null)
@@ -61,18 +67,26 @@ public class Preview : MonoBehaviour
                 //placed hook sfx
                 AudioClip place = sfx[0];
                 SoundFXManager.instance.PlaySoundEffectClip(place, Vector2.zero, 1f);
-
+                buy.buying = false;
 
             }
 
             houston.savedDistance -= cost;
+            houston.savedMetal -= metalCost;
             Destroy(gameObject);
+        } else if (!placeable && (Input.GetButtonDown("Fire1")))
+        {
+            //1 is deny
+            AudioClip place = sfx[1];
+            SoundFXManager.instance.PlaySoundEffectClip(place, Vector2.zero, 1f);
         }
 
         if (Input.GetButtonDown("Fire2"))
         {
             //cancel purchase
             Destroy(gameObject);
+            buy.buying = false;
+
         }
 
         if (touching == false)

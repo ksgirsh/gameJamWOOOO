@@ -12,6 +12,7 @@ public class WaveController : MonoBehaviour
     bool ticking = false;
 
     [Header("Invasion")]
+    bool waves;
     bool invasion;
     int currentInvasions = 0;
     [SerializeField] int initAlienCount;
@@ -22,6 +23,11 @@ public class WaveController : MonoBehaviour
     [Header("Aliens")]
     [SerializeField] GameObject baseAlien;
     public List<GameObject> currentlyAliveAliens;
+
+    //0 is invasion starts, 1 is invasion ends
+    [Header("Sound")]
+    [SerializeField] AudioClip[] sfx;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,10 +46,10 @@ public class WaveController : MonoBehaviour
         }
         else if (!invasion && !ticking)
         {
-            TriggerInvasion();
+            StartCoroutine(TriggerInvasion());
         }
 
-        if (invasion && currentlyAliveAliens.Count == 0)
+        if (invasion && currentlyAliveAliens.Count == 0 & (waves == false))
         {
             invasion = false;
             timeTillNextWave = setTimeTillNextWave;
@@ -76,10 +82,29 @@ public class WaveController : MonoBehaviour
 
     }
 
-    void TriggerInvasion()
+    IEnumerator TriggerInvasion()
     {
         invasion = true;
         currentInvasions++;
+        int waveCount = ((currentInvasions + 1) * invasionScaling);
+        waves = true;
+
+
+        SoundFXManager.instance.PlaySoundEffectClip(sfx[0], transform.position, 1f);
+        setTimeTillNextWave -= ((currentInvasions * invasionScaling) * 15);
+
+        for (int i = 0; i < waveCount; i++)
+        {
+            SpawnWave();
+            yield return new WaitForSeconds(30f);
+
+        }
+
+        waves = false;
+    }
+
+    void SpawnWave()
+    {
         int alienCount = initAlienCount * (invasionScaling * currentInvasions);
 
         for (int i = 0; i < alienCount; i++)
@@ -87,6 +112,5 @@ public class WaveController : MonoBehaviour
             GameObject alien = GameObject.Instantiate(baseAlien, transform.position, Quaternion.identity);
             currentlyAliveAliens.Add(alien);
         }
-
     }
 }

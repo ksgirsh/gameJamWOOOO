@@ -18,6 +18,8 @@ public class LauncherSatellite : Satellite
 
     [SerializeField] AudioClip[] sfx;
     float rocketPrice;
+    Animator anim;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
@@ -29,11 +31,14 @@ public class LauncherSatellite : Satellite
         hookAngSpeed = targetHook.orbitVelocity / hookRad;
         thisAngSpeed = orbitVelocity / orbitRadius;
         trueDistance = Mathf.Abs(hookRad - orbitRadius);
+        anim = gameObject.GetComponent<Animator>();
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         houston = player.GetComponent<RocketControl>();
         rockProp = rocketPrefab.GetComponent<Rocket>();
         rocketPrice = rockProp.rocketPrice;
+
+        anim.CrossFade("withRock", 0, 0);
     }
 
     // Update is called once per frame
@@ -84,7 +89,7 @@ public class LauncherSatellite : Satellite
                     cachedDist = distRad;
                     targetHook = sat;
                 }
-                Debug.Log(orbitRadius + " // " + sat.orbitRadius);
+
             }
         }
 
@@ -116,8 +121,15 @@ public class LauncherSatellite : Satellite
         
         Vector2 dir = ((CalcTargetPos()) - transform.position).normalized;
         SpawnRocket(transform.position, dir);
-        yield return new WaitForSeconds(cooldown);
+
+        yield return new WaitForSeconds(cooldown / 2);
+
+        anim.CrossFade("noRock", 0, 0);
+
+        yield return new WaitForSeconds(cooldown / 2);
         launching = false;
+
+        anim.CrossFade("withRock", 0, 0);
     }
 
     //3 upgrades for Basic Skyhook: Spin Faster, Move Faster, More Health (which wont do anything)

@@ -843,7 +843,6 @@ GameObject:
   m_Component:
   - component: {fileID: 84750143}
   - component: {fileID: 84750145}
-  - component: {fileID: 84750144}
   - component: {fileID: 84750146}
   m_Layer: 5
   m_Name: Tutorial
@@ -868,6 +867,7 @@ RectTransform:
   - {fileID: 999868274}
   - {fileID: 1005731478}
   - {fileID: 1033164463}
+  - {fileID: 915927620}
   m_Father: {fileID: 264766476}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -875,98 +875,6 @@ RectTransform:
   m_AnchoredPosition: {x: -248, y: 176}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &84750144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84750142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: Tutorial
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 18
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_characterHorizontalScale: 1
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_EmojiFallbackSupport: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -292.73077, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &84750145
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1162,7 +1070,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Final Notes
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d82f321f10178f844b0b01ab9233b9f6, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1229,7 +1137,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -155.70941, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &93235844
@@ -1358,11 +1266,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 768172286371549062, guid: 17290823e739a264cae102e993a618e3, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: ed687359033169e4eaa9c97f0deed873, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1585,7 +1493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -6872,15 +6780,20 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "hello! thank you for playing my game!\n \nThis is a game where you get
-    rich and fight aliens by flinging things into space!\n\nClick on a <color=#03ecfc>Skyhook
-    </color>(the hammer looking thing) to<color=#03ecfc> select </color>it, then
-    click near the planet to launch a Rocket towards it!\n\nThe hook will catch the
-    rocket and throw it outwards.\n\nTo launch a rocket, make sure its selected in
-    the UI (near the bottom). <color=#d47070>It should be glowing red!"
+  m_text: 'Click on a <color=#03ecfc>Skyhook </color>(the hammer looking thing) to<color=#03ecfc>
+    select </color>it, then click near the planet to launch a Rocket!
+
+
+    The hook
+    will catch the rocket and throw it outwards.
+
+
+    To launch a rocket, make sure
+    its selected in the UI (near the bottom). <color=#d47070>It should be glowing
+    red!'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d82f321f10178f844b0b01ab9233b9f6, type: 2}
+  m_sharedMaterial: {fileID: -4934316831363578870, guid: d82f321f10178f844b0b01ab9233b9f6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7014,17 +6927,20 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "You'll need to build defenses agains the hordes of <color=#ff63eb> aliens
-    invading! </color>\n\nThe time till the next <color=#ff63eb>invasion </color>is
-    displayed near the bottom-middle of the screen.\n\nHowever, <color=#B98B8B>defenses</color>
-    are expensive, and <color=yellow> kilometers</color> will seldom suffice.\n\n<color=#B98B8B>Asteroid
-    metals</color> are necessary for strong defenses. To mine <color=#B98B8B>asteroids</color>
-    , a Drill rocket needs to be near an <color=#B98B8B>asteroid</color>. There might
-    be other ways, too...\n\n<color=#ff63eb>Aliens</color> will damage your satellites
-    and approach your planet. If too many reach your planet, or all your satellites
-    are destroyed, \n<color=red>YOU LOSE! D:"
+  m_text: '<color=#ff63eb> Aliens will invade every 5 minutes. </color>
+
+
+
+    Use
+    <color=yellow> kilometers</color> and <color=#B98B8B>Asteroid metals</color>
+    to construct a proper defense.
+
+
+    <color=#ff63eb>Aliens</color> will damage
+    your satellites and approach your planet. If too many reach your planet, <color=red>GAME
+    OVER.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d82f321f10178f844b0b01ab9233b9f6, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -7091,7 +7007,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0.3908081, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &315623347
@@ -7965,30 +7881,21 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- Certain skyhooks require Input (space bar)
+  m_text: 'Certain hooks require player input-- use the Spacebar.
 
 
-    - You can view the
-    health of any satellite, alien, or asteroid by hovering over them with your mouse
+    Thanks for
+    bearing through this tutorial!
 
 
-    -
-    Targets may appear that offer rewards when hit, so try to be precise!
+    I know slideshows aren''t the most fun thing--
+    hopefully you''ll find the game much more enjoyable!
 
 
-    -
-    Zoom out with the scroll wheel
-
-
-    Thanks for bearing through this tutorial!
-    I know slideshows aren''t the most fun thing-- hopefully you''ll find the game
-    much more enjoyable!
-
-
-
-    fun fact: it is 1:47 AM as i am writing this'
+    fun fact: it is 1:47
+    AM as i am writing this'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d82f321f10178f844b0b01ab9233b9f6, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -8055,7 +7962,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0.3908081, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &512293695
@@ -8260,16 +8167,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Rockets that are travelling through spaceearn <color=yellow>Kilometers</color>,
-    which is the primary currency of the game. \n\nWith <color=yellow>km</color>,
-    you can unlock and upgrade rockets. \n\nWith <color=yellow>km</color>, you can
-    also upgrade, purchase, and repair hooks.\n\nAll satellites lose health over
-    time, so make sure you are earning <color=yellow>km</color> quickly so you can
-    repair them!\n\nTo use your money, access the dropdown in the top right.\nIf
-    you want to upgrade your rockets, make sure you right-clicked them first-- <color=green>They
-    should be glowing green! \n "
+  m_text: "Moving rockets earn <color=yellow>Kilometers</color>.\n\nWith <color=yellow>km</color>,
+    you can purchase, unlock, and upgrade.\n\nUpgrade rockets by right-clicking them
+    in the UI. <color=green>They should be glowing green! \n \n</color>You can also
+    mine<color=#B98B8B> asteroids</color> by launching special drill rockets. \n<color=#B98B8B>Asteroid
+    metal</color> is used for defense."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d82f321f10178f844b0b01ab9233b9f6, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -8336,7 +8240,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0.3908081, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &541638374
@@ -8394,6 +8298,9 @@ MonoBehaviour:
   dragSelection: {fileID: 630348508}
   currentSelectEffects: []
   selectHookList: []
+  satLayers:
+    serializedVersion: 2
+    m_Bits: 0
   sfx:
   - {fileID: 8300000, guid: 4ac4c432f07d44e4eb1c45d67b0b5472, type: 3}
 --- !u!4 &554083603
@@ -8453,6 +8360,7 @@ MonoBehaviour:
   selectedBuy: {fileID: 778420430720143991, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
   mainCam: {fileID: 0}
   houston: {fileID: 554083604}
+  buying: 0
 --- !u!114 &554083606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8491,6 +8399,7 @@ MonoBehaviour:
   setTimeTillNextWave: 300
   baseAlien: {fileID: 7312485628310949480, guid: 86e763f7caf547942b80298152c6f5b4, type: 3}
   currentlyAliveAliens: []
+  sfx: []
 --- !u!1 &594183674
 GameObject:
   m_ObjectHideFlags: 0
@@ -8814,10 +8723,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1400273518}
   m_HandleRect: {fileID: 785209503}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 0
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -9220,10 +9129,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1759691145}
   m_HandleRect: {fileID: 1664250983}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 0
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -9848,7 +9757,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Progression
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d82f321f10178f844b0b01ab9233b9f6, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -9915,7 +9824,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -155.70941, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &850903264
@@ -10092,6 +10001,145 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &915927619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 915927620}
+  - component: {fileID: 915927622}
+  - component: {fileID: 915927621}
+  m_Layer: 5
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &915927620
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915927619}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 84750143}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 203, y: -356}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &915927621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915927619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'Tutorial - Use Spacebar
+
+'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: d82f321f10178f844b0b01ab9233b9f6, type: 2}
+  m_sharedMaterial: {fileID: -4934316831363578870, guid: d82f321f10178f844b0b01ab9233b9f6, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 18
+  m_fontSizeBase: 18
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 4
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: -292.73077, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &915927622
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915927619}
+  m_CullTransparentMesh: 1
 --- !u!1 &916865947
 GameObject:
   m_ObjectHideFlags: 0
@@ -11626,7 +11674,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Aliens and Defense
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d82f321f10178f844b0b01ab9233b9f6, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -11693,7 +11741,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -155.70941, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1272471504
@@ -11953,108 +12001,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1317910316}
   m_CullTransparentMesh: 1
---- !u!1001 &1325208441
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -7868947033092512223, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: parent
-      value: 
-      objectReference: {fileID: 1504895021}
-    - target: {fileID: -7868947033092512223, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: orbitRadius
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: -7868947033092512223, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: rotateVelocity
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: -7868947033092512223, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: upgrades.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 778420430720143991, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: m_Name
-      value: OuterHook
-      objectReference: {fileID: 0}
-    - target: {fileID: 1411945996242611395, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2255607914982495814, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: parent
-      value: 
-      objectReference: {fileID: 1504895021}
-    - target: {fileID: 2255607914982495814, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: orbitRadius
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2255607914982495814, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: orbitVelocity
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2255607914982495814, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: rotateVelocity
-      value: 1.85
-      objectReference: {fileID: 0}
-    - target: {fileID: 4008492373803583127, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.22
-      objectReference: {fileID: 0}
-    - target: {fileID: 4008492373803583127, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4008492373803583127, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4008492373803583127, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4008492373803583127, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4008492373803583127, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4008492373803583127, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4008492373803583127, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4008492373803583127, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4008492373803583127, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4499145016787624870, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: health
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 7058714562917980881, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.46
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 358732513353231773, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ecfd44629fdd5394e84f0e4043eeb1b9, type: 3}
 --- !u!1 &1326368931
 GameObject:
   m_ObjectHideFlags: 0
@@ -12224,24 +12170,32 @@ MonoBehaviour:
     item: {fileID: 4043726042106607412, guid: 329980ebea4f25d429e6d73e93cdabed, type: 3}
     unlocked: 1
     unlockPrice: 0
+    panelTooltipHeader: 
+    panelTooltipContent: 
   - icon: {fileID: 1891227634, guid: 8c606c81b6d7b7542811d7febfb2458c, type: 3}
     title: Turbo
     price: 7
     item: {fileID: 4043726042106607412, guid: 4319ca6cc6db4014e8592ca1f7bea0df, type: 3}
     unlocked: 0
     unlockPrice: 100
+    panelTooltipHeader: 
+    panelTooltipContent: 
   - icon: {fileID: -104559075, guid: 8c606c81b6d7b7542811d7febfb2458c, type: 3}
     title: Seeker
     price: 100
     item: {fileID: 4043726042106607412, guid: 904c5da3f82cc9c45b3c29ca5764184b, type: 3}
     unlocked: 0
     unlockPrice: 250
+    panelTooltipHeader: 
+    panelTooltipContent: 
   - icon: {fileID: 115103639, guid: 8c606c81b6d7b7542811d7febfb2458c, type: 3}
     title: Meteor Miner
     price: 75
     item: {fileID: 4043726042106607412, guid: e6ea88572811cf94ebca6450294ceee4, type: 3}
     unlocked: 0
     unlockPrice: 500
+    panelTooltipHeader: 
+    panelTooltipContent: 
   rocketUIPanel: {fileID: 4918190271398053976, guid: 29b70bbe1332af148b7c0d0ada4576e2, type: 3}
   location: {fileID: 1538311008}
   horizontalSpacing: 44
@@ -13478,6 +13432,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   rocket: {fileID: 0}
+  earthPieces: []
+  gameOver: {fileID: 0}
+  sfx: []
+  music: {fileID: 0}
+  gameOverTheme: {fileID: 0}
 --- !u!58 &1504895025
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -14947,6 +14906,7 @@ MonoBehaviour:
   currentHealth: 300
   decay: 0
   invincibleTime: 0.8
+  sfx: []
 --- !u!212 &1880614439
 SpriteRenderer:
   serializedVersion: 2
@@ -15107,22 +15067,32 @@ MonoBehaviour:
     price: 100
     name: Basic Skyhook
     metalPrice: 0
+    tooltipHeader: 
+    tooltipContent: 
   - obj: {fileID: 2572996488282332699, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
     price: 400
     name: Aiming Skyhook
     metalPrice: 0
+    tooltipHeader: 
+    tooltipContent: 
   - obj: {fileID: 778420430720143991, guid: 6462dd35c312ad04681d3505b373d632, type: 3}
     price: 300
     name: Rocket Launcher
     metalPrice: 0
+    tooltipHeader: 
+    tooltipContent: 
   - obj: {fileID: 778420430720143991, guid: 937927e547dd6a34089563381c53a2a9, type: 3}
     price: 80
     name: Poor Defense Unit
     metalPrice: 0
+    tooltipHeader: 
+    tooltipContent: 
   - obj: {fileID: 778420430720143991, guid: 23ecab958edbbd34fad86fb461ac2d21, type: 3}
     price: 0
     name: 'Alien Cannon '
     metalPrice: 2
+    tooltipHeader: 
+    tooltipContent: 
   buy: {fileID: 554083605}
   houston: {fileID: 554083604}
 --- !u!114 &1893424678
@@ -15379,8 +15349,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Basic Gameplay
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d82f321f10178f844b0b01ab9233b9f6, type: 2}
+  m_sharedMaterial: {fileID: -4934316831363578870, guid: d82f321f10178f844b0b01ab9233b9f6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -16132,10 +16102,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 468154371}
   m_HandleRect: {fileID: 280190696}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 0
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -16630,71 +16600,6 @@ MonoBehaviour:
   sfx:
   - {fileID: 8300000, guid: 4ac4c432f07d44e4eb1c45d67b0b5472, type: 3}
   - {fileID: 8300000, guid: aeb339a89cd830943908c4898b8a810b, type: 3}
---- !u!1001 &3306560206853509145
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2572996488282332699, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
-      propertyPath: m_Name
-      value: InnerHook(Immortal)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2572996488282332699, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5371473215294146521, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
-      propertyPath: parent
-      value: 
-      objectReference: {fileID: 1504895021}
-    - target: {fileID: 5451061720153435253, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.96
-      objectReference: {fileID: 0}
-    - target: {fileID: 5451061720153435253, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 5451061720153435253, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5451061720153435253, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5451061720153435253, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5451061720153435253, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5451061720153435253, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5451061720153435253, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5451061720153435253, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5451061720153435253, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4c6fe20335243014cb39d93d11bb3c5d, type: 3}
 --- !u!1 &8073462526271819339
 GameObject:
   m_ObjectHideFlags: 0
@@ -16844,8 +16749,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1435607596}
-  - {fileID: 3306560206853509145}
-  - {fileID: 1325208441}
   - {fileID: 1504895023}
   - {fileID: 377973437}
   - {fileID: 268837288}

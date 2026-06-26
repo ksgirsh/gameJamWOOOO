@@ -17,6 +17,10 @@ public class Health : MonoBehaviour
 
     bool isInvincible;
 
+    //0 is hook damage, 1 is hook destroy, 2 is planet damage, 3 is alien damage, 4 is alien destroy
+    [Header("Sound")]
+    [SerializeField] AudioClip[] sfx;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -46,6 +50,12 @@ public class Health : MonoBehaviour
             alienControl = player.GetComponent<WaveController>();
 
         }
+
+        if (gameObject.tag == "Planet")
+        {
+            isOn[4] = true;
+        }
+
         isInvincible = false;
 
 
@@ -64,7 +74,9 @@ public class Health : MonoBehaviour
             
             if (isOn[0])
             {
-                foreach(GameObject hook in select.lockedHooks)
+                //play hook destroy sfx
+                SoundFXManager.instance.PlaySoundEffectClip(sfx[1], transform.position, 1f);
+                foreach (GameObject hook in select.lockedHooks)
                 {
                     if (hook == gameObject)
                     {
@@ -79,6 +91,7 @@ public class Health : MonoBehaviour
 
             if (isOn[2])
             {
+
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 TargetSpawn targetManager = player.GetComponent<TargetSpawn>();
                 targetManager.currentTargets--;
@@ -86,9 +99,17 @@ public class Health : MonoBehaviour
 
             if (isOn[3])
             {
+                //play alien dmg sfx
+                SoundFXManager.instance.PlaySoundEffectClip(sfx[4], transform.position, 1f);
+
                 alienControl.currentlyAliveAliens.Remove(gameObject);
+
             }
 
+            if (isOn[4])
+            {
+                ((transform.parent).gameObject.GetComponent<Planet>()).StartCoroutine((transform.parent).gameObject.GetComponent<Planet>().EarthDestroy());
+            }
             Destroy(gameObject);
         }
     }
@@ -116,7 +137,32 @@ public class Health : MonoBehaviour
 
 
             isInvincible = false;
-       
+            
+        if ((currentHealth - damage) > 0)
+        {
+            for (int i = 0; i < isOn.Length; i++)
+            {
+                if (isOn[i] == true)
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            //play hook damage sfx
+                            SoundFXManager.instance.PlaySoundEffectClip(sfx[0], transform.position, 1f);
+                            break;
+                        case 3:
+                            //play alien damage sfx
+                            SoundFXManager.instance.PlaySoundEffectClip(sfx[3], transform.position, 1f);
+                            break;
+                        case 4:
+                            //play planet damage sfx
+                            SoundFXManager.instance.PlaySoundEffectClip(sfx[2], transform.position, 1f);
+                            break;
+                    }
+                }
+            }
+        }
+
         
 
     }

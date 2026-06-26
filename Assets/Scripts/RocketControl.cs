@@ -26,7 +26,7 @@ public class RocketControl : MonoBehaviour
     public float meters;
 
     [Header("Sound")]
-    //0 is place rocket
+    //0 is place rocket, 1 is deny
     [SerializeField] AudioClip[] sfx;
     
 
@@ -62,6 +62,8 @@ public class RocketControl : MonoBehaviour
         
         if (select.lockedHooks.Count == 0 && (select.nearestHook.GetComponent<Satellite>().loadedRockets.Count >= select.nearestHook.GetComponent<Satellite>().maxRockets))
         {
+            AudioClip deny = sfx[1];
+            SoundFXManager.instance.PlaySoundEffectClip(deny, Vector2.zero, 1f);
             Debug.Log("Too many rockets already on hook.");
             return;
 
@@ -72,6 +74,8 @@ public class RocketControl : MonoBehaviour
             if (select.lockedHooks[0].GetComponent<Satellite>().loadedRockets.Count >= select.lockedHooks[0].GetComponent<Satellite>().maxRockets)
             {
                 Debug.Log("Too many rockets already on hook.");
+                AudioClip deny = sfx[1];
+                SoundFXManager.instance.PlaySoundEffectClip(deny, Vector2.zero, 1f);
                 return;
             }
         }

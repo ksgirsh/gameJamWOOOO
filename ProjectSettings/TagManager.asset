@@ -19,7 +19,7 @@ TagManager:
   - Surface
   - Seekable
   - Mineable
-  - 
+  - Satellite
   - 
   - 
   - 
@@ -48,6 +48,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Front
+    uniqueID: 3876495175
     locked: 0
   m_RenderingLayers:
   - Default

@@ -87,12 +87,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1341509480213057573, guid: 953775e883ea11a42aa1823830a513a8, type: 3}
-  m_Color: {r: 0.5058824, g: 1, b: 0.98065317, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 953775e883ea11a42aa1823830a513a8, type: 3}
+  m_Color: {r: 0.745283, g: 0.33001626, b: 0.08085619, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.0625, y: 1.0625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -149,6 +149,7 @@ MonoBehaviour:
   currentHealth: 0
   decay: 1
   invincibleTime: 0.8
+  sfx: []
 --- !u!114 &-2501610456875780899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +165,8 @@ MonoBehaviour:
   identifier: Asteroid
   ps: {fileID: 7374616225088517498}
   spawnChance: 500
+  sfx:
+  - {fileID: 8300000, guid: d73cbc1ebe11468469a08e3e51bae753, type: 3}
   asteroidMoveSpeed: 1.1
   beingMined: 0
 --- !u!50 &3733085006749564699
@@ -532,7 +535,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0, b: 0, a: 1}
+      maxColor: {r: 0.5754717, g: 0.4363885, b: 0.3230242, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

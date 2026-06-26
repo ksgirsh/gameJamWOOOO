@@ -42,7 +42,7 @@ public class Tutorial : MonoBehaviour
         if (currentInx >= (tutorial.Length))
         {
             tutText.SetActive(false);
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
             //tutorial over
         }
     }

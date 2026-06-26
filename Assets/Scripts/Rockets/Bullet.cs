@@ -3,7 +3,12 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float attackDamage = 25f;
+    [SerializeField] AudioClip[] sfx;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        SoundFXManager.instance.PlaySoundEffectClip(sfx[0], transform.position, 1f);
+    }
 
     void OnTriggerEnter2D(Collider2D coll)
     {

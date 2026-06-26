@@ -10,7 +10,7 @@ public class ShopValues : MonoBehaviour, IPointerClickHandler
     [SerializeField] TMP_Dropdown dropdown;
 
 
-    //0 is select, 1 is purchase
+    //0 is select, 1 is purchase, 2 is deny
     [SerializeField] AudioClip[] sfx;
 
 
@@ -22,6 +22,9 @@ public class ShopValues : MonoBehaviour, IPointerClickHandler
         public int price;
         public string name;
         public int metalPrice;
+
+        public string tooltipHeader;
+        public string tooltipContent;
     }
 
     [SerializeField] List<Purchasable> shoppables;
@@ -57,6 +60,8 @@ public class ShopValues : MonoBehaviour, IPointerClickHandler
         });
 
         dropdown.SetValueWithoutNotify(-1);
+
+
     }
 
     public void GetDropdownValue()
@@ -69,17 +74,19 @@ public class ShopValues : MonoBehaviour, IPointerClickHandler
         int pickedEntryIndex = dropdown.value;
         string selectedOption = (dropdown.options[pickedEntryIndex]).text;
 
-        if ((houston.meters - (shoppables[pickedEntryIndex].price)) >= 0)
+
+        if (((houston.meters - (shoppables[pickedEntryIndex].price)) >= 0) && buy.buying == false && ((houston.savedMetal - (shoppables[pickedEntryIndex].metalPrice)) >= 0))
         {
             buy.selectedBuy = shoppables[pickedEntryIndex].obj;
-            buy.TriggerBuy((float)(shoppables[pickedEntryIndex].price));
+            buy.TriggerBuy((float)(shoppables[pickedEntryIndex].price), shoppables[pickedEntryIndex].metalPrice);
 
             AudioClip purchase = sfx[1];
             SoundFXManager.instance.PlaySoundEffectClip(purchase, Vector2.zero, 1f);
 
         } else
         {
-            Debug.Log("not enough money");
+            SoundFXManager.instance.PlaySoundEffectClip(sfx[2], transform.position, 1f);
+
         }
 
 
@@ -126,6 +133,7 @@ public class ShopValues : MonoBehaviour, IPointerClickHandler
             AddNewLocation(item.name, item.price, "km", "<color=#FFF000>");
 
         }
+
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -135,6 +143,15 @@ public class ShopValues : MonoBehaviour, IPointerClickHandler
         {
             AudioClip select = sfx[0];
             SoundFXManager.instance.PlaySoundEffectClip(select, Vector2.zero, 1f);
+
+
+
+            TooltipTrigger[] info = dropdown.gameObject.GetComponentsInChildren<TooltipTrigger>();
+            for (int i = 0; i < info.Length; i++)
+            {
+                info[i].header = shoppables[i].tooltipHeader;
+                info[i].content = shoppables[i].tooltipContent;
+            }
         }
 
     }

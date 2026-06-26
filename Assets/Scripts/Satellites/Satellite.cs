@@ -38,6 +38,9 @@ public class Satellite : MonoBehaviour
         public int cost;
         public int maxUpgrades;
         public int currentUpgrades;
+
+        public string tooltipHeader;
+        public string tooltipContent;
     }
     public List<Upgrade> upgrades;
 

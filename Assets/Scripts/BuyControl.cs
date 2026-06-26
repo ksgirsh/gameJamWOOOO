@@ -7,6 +7,8 @@ public class BuyControl : MonoBehaviour
 
     [SerializeField] RocketControl houston;
     public int thingsBought { get; private set; }
+
+    public bool buying;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,16 +18,9 @@ public class BuyControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            TriggerBuy(100);
-            
-
-
-        }
     }
     
-    public void TriggerBuy(float price)
+    public void TriggerBuy(float price, int metalPrice = 0)
     {
         
         GameObject prev = GameObject.Instantiate((selectedBuy.GetComponent<Buyable>().preview), WorldMousePos(), Quaternion.identity);
@@ -33,6 +28,7 @@ public class BuyControl : MonoBehaviour
         //this logic feels weirdly circular and confusing. Theres a cleaner way to do this that hasnt gotten through my thick skull
         prev.GetComponent<Preview>().realVersion = selectedBuy;
         prev.GetComponent<Preview>().cost = price;
+        prev.GetComponent<Preview>().metalCost = metalPrice;
         thingsBought++;
 
     }

@@ -32,10 +32,13 @@ public class SelectControl : MonoBehaviour
     private bool isDragging;
     [HideInInspector] public List<GameObject> currentSelectEffects;
     [HideInInspector] public List<GameObject> selectHookList;
+    [SerializeField] LayerMask satLayers;
 
     [Header("Sound")]
     //0 is locking
     [SerializeField] AudioClip[] sfx;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -102,6 +105,26 @@ public class SelectControl : MonoBehaviour
             UISingleton.instance.ToggleDropdown(2);
 
         }
+
+        if (nearestHook == null)
+        {
+            GameObject[] allSatellites = GameObject.FindGameObjectsWithTag("Satellite");
+            float cachedRad = 999f;
+            GameObject cachedSatellite = null;
+
+            foreach (GameObject satellite in allSatellites)
+            {
+                if (satellite.GetComponent<Satellite>().orbitRadius < cachedRad)
+                {
+                    cachedRad = satellite.GetComponent<Satellite>().orbitRadius;
+                    cachedSatellite = satellite;
+                }
+            }
+
+
+            nearestHook = cachedSatellite;
+
+        }
     }
 
     public void SelectTrigger(GameObject hook)
@@ -118,6 +141,10 @@ public class SelectControl : MonoBehaviour
             }
         }
 
+        if (hook == null)
+        {
+            return;
+        }
         
         //selection magic
         Transform hookTrans = hook.transform;
@@ -240,19 +267,22 @@ public class SelectControl : MonoBehaviour
     void CreateSelection()
     {
         dragSelection.gameObject.SetActive(true);
-        originalDragPos = Input.mousePosition;
-       
+        originalDragPos = Input.mousePosition / canvas.scaleFactor;
+        dragSelection.anchoredPosition = Input.mousePosition;
     }
 
     void UpdateSelection()
     {
         float scaleFac = canvas.scaleFactor;
-        Vector2 newPos = (Input.mousePosition);
+        Vector2 newPos = (Input.mousePosition) / canvas.scaleFactor;
+
+
+
         Vector2 dist = (originalDragPos - newPos);
-        Vector2 sizeChange = new Vector2(Mathf.Abs(dist.x / scaleFac), Mathf.Abs(dist.y / scaleFac));
+        Vector2 sizeChange = new Vector2(Mathf.Abs(dist.x), Mathf.Abs(dist.y));
         
         dragSelection.sizeDelta = sizeChange;
-        dragSelection.anchoredPosition = ((originalDragPos / scaleFac) + newPos) / 2;
+        dragSelection.anchoredPosition = ((originalDragPos) + newPos) / 2;
         SelectWithBox();
         CheckSelectedObjects();
     }
@@ -264,7 +294,7 @@ public class SelectControl : MonoBehaviour
         originalDragPos = Vector2.zero;
         isDragging = false;
 
-        if (currentSelectEffects.Count > 1)
+        if (currentSelectEffects.Count > 0)
         {
             LockWithBox();
         }
@@ -285,12 +315,47 @@ public class SelectControl : MonoBehaviour
         directions[2] = dragSelection.anchoredPosition.y - (dragSelection.sizeDelta.y / 2);
         directions[3] = dragSelection.anchoredPosition.y + (dragSelection.sizeDelta.y / 2);
 
+        Collider2D[] hitSatellites = Physics2D.OverlapAreaAll(mainCamera.ScreenToWorldPoint(originalDragPos * canvas.scaleFactor), mainCamera.ScreenToWorldPoint(Input.mousePosition), satLayers);
+        //Debug.Log(mainCamera.ScreenToWorldPoint(originalDragPos * canvas.scaleFactor) + "   ///   " + mainCamera.ScreenToWorldPoint(Input.mousePosition));
+        if (hitSatellites.Length > 0)
+        {
+            for (int i = 0; i < hitSatellites.Length; i++)
+            {
+                GameObject sat = hitSatellites[i].gameObject;
+                for (int j = 0; j < lockedHooks.Count; j++)
+                {
+                    if (sat == lockedHooks[j])
+                    {
+                        return;
+
+                    }
+
+                }
+
+                for (int j = 0; j < selectHookList.Count; j++)
+                {
+                    if (sat == selectHookList[j])
+                    {
+                        return;
+
+                    }
+
+                }
+
+                Transform hookTrans = sat.transform;
+                GameObject sel = GameObject.Instantiate(selectEffect, sat.transform.position, transform.rotation, hookTrans);
+                sel.transform.localPosition = Vector3.zero;
+                currentSelectEffects.Add(sel);
+                selectHookList.Add(sat);
+            }
+        }
+        /*
         for (int i = 0; i < allSats.Length; i++)
         {
             GameObject sat = allSats[i];
 
             Vector3 screenPos = mainCamera.WorldToScreenPoint(sat.transform.position);
-            if (((screenPos.x > directions[0]) && (screenPos.x < directions[1])) && ((screenPos.y > directions[2]) && (screenPos.y < directions[3])))
+            if (((screenPos.x >= directions[0]) && (screenPos.x <= directions[1])) && ((screenPos.y >= directions[2]) && (screenPos.y <= directions[3])))
             {
                 for (int j = 0; j < lockedHooks.Count; j++)
                 {
@@ -302,21 +367,24 @@ public class SelectControl : MonoBehaviour
 
                 }
 
-                if (currentSelectEffects.Count <= i)
+                for (int j = 0; j < selectHookList.Count; j++)
                 {
-                        //selection magic
-                        Transform hookTrans = sat.transform;
-                        GameObject sel = GameObject.Instantiate(selectEffect, sat.transform.position, transform.rotation, hookTrans);
-                        sel.transform.localPosition = Vector3.zero;
-                        currentSelectEffects.Add(sel);
-                        selectHookList.Add(sat);
+                    if (sat == selectHookList[j])
+                    {
+                        return;
+
+                    }
 
                 }
 
-
-
+                    //selection magic
+                    Transform hookTrans = sat.transform;
+                    GameObject sel = GameObject.Instantiate(selectEffect, sat.transform.position, transform.rotation, hookTrans);
+                    sel.transform.localPosition = Vector3.zero;
+                    currentSelectEffects.Add(sel);
+                    selectHookList.Add(sat);
             }
-        }
+        }*/
 
     }
 
@@ -332,7 +400,7 @@ public class SelectControl : MonoBehaviour
         {
             GameObject sat = selectHookList[i];
 
-            Vector3 screenPos = mainCamera.WorldToScreenPoint(sat.transform.position);
+            Vector3 screenPos = mainCamera.WorldToScreenPoint(sat.transform.position) / canvas.scaleFactor;
             if (((screenPos.x > directions[0]) && (screenPos.x < directions[1])) && ((screenPos.y > directions[2]) && (screenPos.y < directions[3])))
             {
                 return;
@@ -349,21 +417,17 @@ public class SelectControl : MonoBehaviour
 
     void LockWithBox()
     {
+
         for (int i = 0; i < currentSelectEffects.Count; i++)
         {
+
             GameObject lockObj = GameObject.Instantiate(lockEffect, currentSelectEffects[i].transform.position, Quaternion.identity, currentSelectEffects[i].transform.parent);
             lockObj.transform.localPosition = Vector3.zero;
             
-
-            if (selectHookList[i] != null)
-            {
-                lockedHooks.Add(selectHookList[i]);
-                Destroy(currentSelectEffects[i]);
-            }
-
-
+            lockedHooks.Add(selectHookList[i]);
             currentLockEffects.Add(lockObj);
 
+            Destroy(currentSelectEffects[i]);
 
         }
         int mostRecent = (lockedHooks.Count - 1);
@@ -385,7 +449,7 @@ public class SelectControl : MonoBehaviour
         UISingleton.instance.skyHealth.GetComponent<HookHealthDisplay>().satHealth = lockedHooks[mostRecent].GetComponent<Health>();
 
 
-        //placed hook sfx
+        //lcok sfx
         AudioClip lockk = sfx[0];
         SoundFXManager.instance.PlaySoundEffectClip(lockk, Vector2.zero, 1f);
 

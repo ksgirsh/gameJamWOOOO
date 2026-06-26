@@ -15,6 +15,9 @@ public class RocketShop : MonoBehaviour
         public GameObject item;
         public bool unlocked = false;
         public int unlockPrice;
+
+        public string panelTooltipHeader;
+        public string panelTooltipContent;
     }
 
     [SerializeField] List<RocketBuyable> rocketPurchasables;
@@ -55,7 +58,13 @@ public class RocketShop : MonoBehaviour
 
             panelProperties.unlockPrice = rocketPurchasables[i].unlockPrice;
             panelProperties.consumePrice = rocketPurchasables[i].price;
+
+
             panelProperties.shop = this;
+
+            TooltipTrigger tt = panel.GetComponent<TooltipTrigger>();
+            tt.header = rocketPurchasables[i].panelTooltipHeader;
+            tt.content = rocketPurchasables[i].panelTooltipContent;
 
             //store upgrade possibilities in panel
 
@@ -70,6 +79,8 @@ public class RocketShop : MonoBehaviour
                 panelProperties.upgrades[j].maxUpgrades = thisRocket.upgrades[j].maxUpgrades;
                 panelProperties.upgrades[j].currentUpgrades = thisRocket.upgrades[j].currentUpgrades;
                 panelProperties.upgrades[j].magnitude = thisRocket.upgrades[j].magnitude;
+                panelProperties.upgrades[j].tooltipHeader = thisRocket.upgrades[j].tooltipHeader;
+                panelProperties.upgrades[j].tooltipContent = thisRocket.upgrades[j].tooltipContent;
             }
 
             panelProperties.InitUnlockLogic();

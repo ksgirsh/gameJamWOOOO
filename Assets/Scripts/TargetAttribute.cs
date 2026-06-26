@@ -6,10 +6,13 @@ public class TargetAttribute : MonoBehaviour
     public ParticleSystem ps;
     public int spawnChance;
 
+    public AudioClip[] sfx;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
         ps.Stop();
+        SoundFXManager.instance.PlaySoundEffectClip(sfx[0], transform.position, 1f);
     }
 
     // Update is called once per frame

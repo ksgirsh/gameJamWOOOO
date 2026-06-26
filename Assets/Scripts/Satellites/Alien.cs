@@ -12,6 +12,10 @@ public class Alien : MonoBehaviour
 
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] float attackDamage = 30f;
+
+    [Header("Sound")]
+    //0 is alien damage, 1 is alien destroy, 2 is planet damage, 3 is hookdmg
+    [SerializeField] AudioClip[] sfx;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     WaveController alienControl;
@@ -48,7 +52,6 @@ public class Alien : MonoBehaviour
             {
 
                 StartCoroutine(satHealth.TakeDamage(attackDamage));
-
 
                 if (coll.gameObject.tag == "Planet")
                 {

@@ -18,7 +18,7 @@ public class RocketUpgradeHandler : MonoBehaviour, IPointerClickHandler
      
     public Rocket subject;
 
-    //0 is select, 1 is purchase. I should have just done inheritance instead of copying and pasting a bunch of code. oh well.
+    //0 is select, 1 is purchase. I should have just done inheritance instead of copying and pasting a bunch of code. oh well. 2 is deny and past me is right they should have done inheritance.
     [SerializeField] AudioClip[] sfx;
 
 
@@ -48,7 +48,7 @@ public class RocketUpgradeHandler : MonoBehaviour, IPointerClickHandler
         for (int i = 0; i < options.Count; i++)
         {
             int remUpgr = (subjectPanel.upgrades[i].maxUpgrades - subjectPanel.upgrades[i].currentUpgrades);
-            string addendum = string.Concat(" - ", (subject.upgrades[i].cost).ToString());
+            string addendum = string.Concat(" - ", "<color=yellow>", (subject.upgrades[i].cost).ToString(), " km </color>");
             //if there is already an addendum, remove it
             string predendum = ((options[i].text).Replace(addendum, ""));
 
@@ -84,6 +84,10 @@ public class RocketUpgradeHandler : MonoBehaviour, IPointerClickHandler
 
             AudioClip purchase = sfx[1];
             SoundFXManager.instance.PlaySoundEffectClip(purchase, Vector2.zero, 1f);
+
+        } else
+        {
+            SoundFXManager.instance.PlaySoundEffectClip(sfx[2], transform.position, 1f);
         }
 
         dropdown.SetValueWithoutNotify(-1);
@@ -118,6 +122,14 @@ public class RocketUpgradeHandler : MonoBehaviour, IPointerClickHandler
         {
             AudioClip select = sfx[0];
             SoundFXManager.instance.PlaySoundEffectClip(select, Vector2.zero, 1f);
+
+            TooltipTrigger[] info = dropdown.gameObject.GetComponentsInChildren<TooltipTrigger>();
+
+            for (int i = 0; i < info.Length; i++)
+            {
+                info[i].header = subjectPanel.upgrades[i].tooltipHeader;
+                info[i].content = subjectPanel.upgrades[i].tooltipContent;
+            }
         }
 
     }

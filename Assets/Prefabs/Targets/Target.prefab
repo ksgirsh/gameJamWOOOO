@@ -85,12 +85,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1341509480213057573, guid: 953775e883ea11a42aa1823830a513a8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 953775e883ea11a42aa1823830a513a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.0625, y: 1.0625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -146,6 +146,9 @@ MonoBehaviour:
   identifier: Meter Target
   ps: {fileID: 7374616225088517498}
   spawnChance: 2000
+  sfx:
+  - {fileID: 8300000, guid: d73cbc1ebe11468469a08e3e51bae753, type: 3}
+  - {fileID: 8300000, guid: 326f08ebc7e28f7439f0cdd2fb49c0a7, type: 3}
   targetPoints: 275
 --- !u!114 &3461729900318370086
 MonoBehaviour:
@@ -163,6 +166,7 @@ MonoBehaviour:
   currentHealth: 0
   decay: 1
   invincibleTime: 0.8
+  sfx: []
 --- !u!1 &2542467506298033892
 GameObject:
   m_ObjectHideFlags: 0

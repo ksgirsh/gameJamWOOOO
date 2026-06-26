@@ -23,7 +23,7 @@ public class MeterTarget : TargetAttribute
     {
         ps.Play();
         ps.gameObject.transform.SetParent(null);
-
+        SoundFXManager.instance.PlaySoundEffectClip(sfx[1], transform.position, 1f);
 
         Destroy(ps.gameObject, 1f);
         TriggerDestroy();

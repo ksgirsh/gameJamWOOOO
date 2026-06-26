@@ -85,12 +85,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -8360708659529787156, guid: a081703752049d84ca7d6458d820f47a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a081703752049d84ca7d6458d820f47a, type: 3}
   m_Color: {r: 0.09710693, g: 1, b: 0, a: 0.48235294}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.53125, y: 0.875}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -293,7 +293,9 @@ MonoBehaviour:
   mainCam: {fileID: 0}
   identifier: Satellite
   cost: 0
+  metalCost: 0
   placeableColor: {r: 0, g: 1, b: 0.11764707, a: 0.5019608}
   unplaceableColor: {r: 1, g: 0, b: 0, a: 0.5019608}
   sfx:
-  - {fileID: 8300000, guid: 11ab3a0b196c4764499679dd85f399ed, type: 3}
+  - {fileID: 8300000, guid: 930a042e5596acc4d9cd069e9f329b89, type: 3}
+  - {fileID: 8300000, guid: 81fd8187d0f5ce340b6760973ac01c1e, type: 3}
