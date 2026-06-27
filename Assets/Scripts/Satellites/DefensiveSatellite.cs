@@ -2,15 +2,15 @@ using UnityEngine;
 using System.Collections;
 public class DefensiveSatellite : Satellite
 {
-    [SerializeField] GameObject projectile;
-    [SerializeField] float fireForce = 8f;
+    [field:SerializeField] protected GameObject projectile;
+    [field: SerializeField] protected float fireForce = 8f;
 
     [field:SerializeField] public float fireRange { get; private set; }
-    [SerializeField] LayerMask alienLayers;
+    [field: SerializeField] protected LayerMask alienLayers;
 
-    [SerializeField] float attackDamage = 25f;
-    [SerializeField] float attackRate = 1f;
-    bool firing = false;
+    [field: SerializeField] protected float attackDamage = 25f;
+    [field: SerializeField] protected float attackRate = 1f;
+    protected bool firing = false;
     // Update is called once per frame
     protected override void Update()
     {
@@ -18,7 +18,7 @@ public class DefensiveSatellite : Satellite
         SeekAliens();
     }
 
-    void SeekAliens()
+    protected virtual void SeekAliens()
     {
         Collider2D[] seek = Physics2D.OverlapCircleAll(hookPoint.position, fireRange, alienLayers);
         if (seek.Length > 0)

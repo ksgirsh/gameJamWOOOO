@@ -14,6 +14,8 @@ public class Health : MonoBehaviour
     WaveController alienControl;
 
     [SerializeField] float invincibleTime = 0.8f;
+    [SerializeField] GameObject alert;
+
 
     bool isInvincible;
 
@@ -58,6 +60,11 @@ public class Health : MonoBehaviour
 
         isInvincible = false;
 
+        if (alert != null)
+        {
+            alert.transform.SetParent(null);
+            alert.SetActive(false);
+        }
 
     }
 
@@ -111,6 +118,17 @@ public class Health : MonoBehaviour
                 ((transform.parent).gameObject.GetComponent<Planet>()).StartCoroutine((transform.parent).gameObject.GetComponent<Planet>().EarthDestroy());
             }
             Destroy(gameObject);
+        }
+
+        if (isOn[0])
+        {
+            if (currentHealth < 18f && alert != null)
+            {
+                alert.SetActive(true);
+            } else if (currentHealth > 18f)
+            {
+                alert.SetActive(false);
+            }
         }
     }
 

@@ -52,6 +52,8 @@ public class Satellite : MonoBehaviour
 
     public Vector2 initialPos = Vector2.zero;
 
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {

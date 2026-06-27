@@ -121,18 +121,24 @@ public class ShopValues : MonoBehaviour, IPointerClickHandler
 
     void RefreshShop()
     {
+
+        
+
         foreach (Purchasable item in shoppables)
         {
             if (item.price == 0 && item.metalPrice > 0)
             {
                 //metal color
                 AddNewLocation(item.name, item.metalPrice, "t", "<color=#B98B8B>");
-                return;
+            } else
+            {
+                AddNewLocation(item.name, item.price, "km", "<color=#FFF000>");
             }
             //meters color
-            AddNewLocation(item.name, item.price, "km", "<color=#FFF000>");
+            
 
         }
+
 
     }
 

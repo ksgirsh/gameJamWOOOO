@@ -4,6 +4,8 @@ public class Bullet : MonoBehaviour
 {
     public float attackDamage = 25f;
     [SerializeField] AudioClip[] sfx;
+
+    [SerializeField] bool isTrap;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,6 +18,13 @@ public class Bullet : MonoBehaviour
         {
             Health alieHealth = coll.gameObject.GetComponent<Health>();
             StartCoroutine(alieHealth.TakeDamage(attackDamage));
+
+            if (isTrap)
+            {
+                Health thisHealth = gameObject.GetComponent<Health>();
+                StartCoroutine(alieHealth.TakeDamage(40f));
+
+            }
         }
     }
 }

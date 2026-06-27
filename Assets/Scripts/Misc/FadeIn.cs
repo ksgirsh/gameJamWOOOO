@@ -107,7 +107,7 @@ public class FadeIn : MonoBehaviour
     }
 
 
-    IEnumerator FadeInImg(float dur, Image img, int direction = 0, float fadeTo = 1f)
+    public IEnumerator FadeInImg(float dur, Image img, int direction = 0, float fadeTo = 1f)
     {
         //Debug.Log((0f + direction * fadeTo) + " " + ((1f * fadeTo) - (direction * fadeTo)));
         Color initColor = img.color;

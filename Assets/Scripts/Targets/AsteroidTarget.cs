@@ -14,6 +14,9 @@ public class AsteroidTarget : TargetAttribute
     SelectControl control;
     int metalAmt;
 
+    [SerializeField] Sprite[] possibleSprites;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
@@ -36,6 +39,10 @@ public class AsteroidTarget : TargetAttribute
         control = player.GetComponent<SelectControl>();
 
         metalAmt = 100 + (Random.Range(-50, 200));
+
+        int randSprite = Random.Range(0, 2);
+        SpriteRenderer rend = gameObject.GetComponent<SpriteRenderer>();
+        rend.sprite = possibleSprites[randSprite];
 
     }
 

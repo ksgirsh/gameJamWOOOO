@@ -8,7 +8,7 @@ public class AttachToObject : MonoBehaviour
     public float zOffset = -10.0f;
     [SerializeField] float xOffset;
 
-    [SerializeField] bool attachToX;
+    [SerializeField] float yOffset;
 
     void Start()
     {
@@ -29,6 +29,7 @@ public class AttachToObject : MonoBehaviour
             Vector3 pos = target.position;
             pos.z += zOffset;
             pos.x += xOffset;
+            pos.y += yOffset;
             this.transform.position = pos;
         }
 

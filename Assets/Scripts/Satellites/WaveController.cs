@@ -86,7 +86,7 @@ public class WaveController : MonoBehaviour
     {
         invasion = true;
         currentInvasions++;
-        int waveCount = ((currentInvasions + 1) * invasionScaling);
+        int waveCount = (currentInvasions + 1);
         waves = true;
 
 

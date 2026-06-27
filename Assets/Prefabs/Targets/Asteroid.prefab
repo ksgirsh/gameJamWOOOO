@@ -87,8 +87,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 953775e883ea11a42aa1823830a513a8, type: 3}
-  m_Color: {r: 0.745283, g: 0.33001626, b: 0.08085619, a: 1}
+  m_Sprite: {fileID: 21300000, guid: fd2a9bdb7dbea9d438963e2c16bdf93d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -149,6 +149,7 @@ MonoBehaviour:
   currentHealth: 0
   decay: 1
   invincibleTime: 0.8
+  alert: {fileID: 0}
   sfx: []
 --- !u!114 &-2501610456875780899
 MonoBehaviour:
@@ -169,6 +170,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d73cbc1ebe11468469a08e3e51bae753, type: 3}
   asteroidMoveSpeed: 1.1
   beingMined: 0
+  possibleSprites:
+  - {fileID: 21300000, guid: fd2a9bdb7dbea9d438963e2c16bdf93d, type: 3}
+  - {fileID: 21300000, guid: 2b0dbf32d17ad694b93b8550c2df7d5e, type: 3}
 --- !u!50 &3733085006749564699
 Rigidbody2D:
   serializedVersion: 5

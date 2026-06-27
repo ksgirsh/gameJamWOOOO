@@ -34,7 +34,6 @@ public class RocketControl : MonoBehaviour
     void Start()
     {
         select = gameObject.GetComponent<SelectControl>();
-        savedDistance = 5;
 
     }
 
